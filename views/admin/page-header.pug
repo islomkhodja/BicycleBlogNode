@@ -1,0 +1,38 @@
+nav.navbar.page-header
+	a.btn.btn-link.sidebar-mobile-toggle.d-md-none.mr-auto(href='#')
+		i.fa.fa-bars
+	a.navbar-brand(href='#')
+		img(src='/images/icon.png', alt='logo', width="65", height="65")
+	a.btn.btn-link.sidebar-toggle.d-md-down-none(href='#')
+		i.fa.fa-bars
+	ul.navbar-nav.ml-auto
+		//- li.nav-item.d-md-down-none
+			a(href='#')
+				i.fa.fa-bell
+				span.badge.badge-pill.badge-danger 5
+		//- li.nav-item.d-md-down-none
+			a(href='#')
+				i.fa.fa-envelope-open
+				span.badge.badge-pill.badge-danger 5
+		li.nav-item.dropdown
+			a.nav-link.dropdown-toggle(href='#', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+				img.avatar.avatar-sm(src='/images/icon.png', alt='logo', width="45", height="45")
+				span.small.ml-1.d-md-down-none=user_name
+			.dropdown-menu.dropdown-menu-right
+				.dropdown-header Account
+				a.dropdown-item(href='#')
+					i.fa.fa-user
+					|  Profile
+				a.dropdown-item(href='#')
+					i.fa.fa-envelope
+					|  Messages
+				.dropdown-header Settings
+				a.dropdown-item(href='#')
+					i.fa.fa-bell
+					|  Notifications
+				a.dropdown-item(href='#')
+					i.fa.fa-wrench
+					|  Settings
+				a.dropdown-item(href='/admin/logout')
+					i.fa.fa-lock
+					|  Logout

@@ -1,0 +1,75 @@
+include head.pug
+body.sidebar-fixed.header-fixed
+		.page-wrapper
+			
+			include page-header.pug
+
+
+			.main-container
+				
+
+
+
+				include sidebar.pug
+				
+
+
+
+
+				.content
+					.container-fluid
+						.row
+							.col-md-3
+								.card.p-4
+									.card-body.d-flex.justify-content-between.align-items-center
+										div
+											span.h4.d-block.font-weight-normal.mb-2 54
+											span.font-weight-light Total Users
+										.h2.text-muted
+											i.icon.icon-people
+							.col-md-3
+								.card.p-4
+									.card-body.d-flex.justify-content-between.align-items-center
+										div
+											span.h4.d-block.font-weight-normal.mb-2 $32,400
+											span.font-weight-light Income
+										.h2.text-muted
+											i.icon.icon-wallet
+							.col-md-3
+								.card.p-4
+									.card-body.d-flex.justify-content-between.align-items-center
+										div
+											span.h4.d-block.font-weight-normal.mb-2 900
+											span.font-weight-light Downloads
+										.h2.text-muted
+											i.icon.icon-cloud-download
+							.col-md-3
+								.card.p-4
+									.card-body.d-flex.justify-content-between.align-items-center
+										div
+											span.h4.d-block.font-weight-normal.mb-2 32s
+											span.font-weight-light Time
+										.h2.text-muted
+											i.icon.icon-clock
+						.row
+							.col-md-12
+								.card
+									.card-header
+										| Total Users
+									.card-body.p-0
+										.p-4
+											canvas#line-chart(width='100%', height='20')
+										.justify-content-around.mt-4.p-4.bg-light.d-flex.border-top.d-md-down-none
+											.text-center
+												.text-muted.small Total Traffic
+												div 12,457 Users (40%)
+											.text-center
+												.text-muted.small Banned Users
+												div 95,333 Users (5%)
+											.text-center
+												.text-muted.small Page Views
+												div 957,565 Pages (50%)
+											.text-center
+												.text-muted.small Total Downloads
+												div 957,565 Files (100 TB)
+		include foot.pug										

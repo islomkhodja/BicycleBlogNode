@@ -1,0 +1,124 @@
+block main
+    div#page
+        h1=user_name
+        div.site-inner
+            header#top-header
+                div.header-hi
+                    h1
+                        a(href="#") Ertaga
+                    h6 Har doim ertaga amalga oshiraman.
+                div.header-menu
+                    ul
+                        li.active
+                            a(href="#") Home
+                        li
+                            a(href="#") About
+                        li
+                            a(href="#") Contact
+            div#content
+                div#primary
+                    main#main.site-main
+                        article.post
+                            header.entry-header
+                                h2.entry-title
+                                    a(href="#") Git buyruqlari
+                            div.content
+                                p Assalomu Aleykum, Dunyo! Git buyruqlarini oʻrganamiz. Dasturchilar gitni juda koʻp ishlatishadi. Buni bilish shart.
+                                p
+                                    img(src="https://www.derekgourlay.com/images/finn_upset.png" alt="iamge")
+                                p
+                                    a(href="#" class="more-read") Continue reading...
+                            footer.entry-data
+                                span
+                                    a(href="#") December 13, 2017
+                                span
+                                    a(href="#") Dev
+                                span
+                                    a(href="#") git, github, gitlab
+                                span
+                                    a(href="#") Leave a comment
+                                span
+                                    a(href="#") Edit
+                                //December 13, 2017
+                                //Categories Dev
+                                //Tags git, github, gitlab
+                                //Leave a comment on Git buyruqlari
+                                //Edit
+                        article.post
+                            header.entry-header
+                                h2.entry-title
+                                    a(href="#") Git buyruqlari
+                            div.content
+                                p Assalomu Aleykum, Dunyo! Git buyruqlarini oʻrganamiz. Dasturchilar gitni juda koʻp ishlatishadi. Buni bilish shart.
+                                p
+                                    img(src="https://www.derekgourlay.com/images/finn_upset.png" alt="iamge")
+                                p
+                                    a(href="#" class="more-read") Continue reading..
+                            footer.entry-data
+                                span
+                                    a(href="#") December 13, 2017
+                                span
+                                    a(href="#") Dev
+                                span
+                                    a(href="#") git, github, gitlab
+                                span
+                                    a(href="#") Leave a comment
+                                span
+                                    a(href="#") Edit
+                        article.post
+                            header.entry-header
+                                h2.entry-title
+                                    a(href="#") Git buyruqlari
+                            div.content
+                                p Assalomu Aleykum, Dunyo! Git buyruqlarini oʻrganamiz. Dasturchilar gitni juda koʻp ishlatishadi. Buni bilish shart.
+                                p
+                                    img(src="https://www.derekgourlay.com/images/finn_upset.png" alt="iamge")
+                                p
+                                    a(href="#" class="more-read") Continue reading..
+                            footer.entry-data
+                                span
+                                    a(href="#") December 13, 2017
+                                span
+                                    a(href="#") Dev
+                                span
+                                    a(href="#") git, github, gitlab
+                                span
+                                    a(href="#") Leave a comment
+                                span
+                                    a(href="#") Edit
+                aside#secondary.sidebar
+                    section.widget.widget-categories
+                        h2 Categories
+                        ul
+                            li
+                                a(href="#") Dev
+                                | (#{dev_category})
+                            li
+                                a(href="#") Think About It
+                                |(1)
+                    section.widget.widget-tags
+                        h2 Tags
+                        ul.wp-tag-cloud
+                            li
+                                a(href="#") gitlab
+                            li
+                                a(href="#") telegram
+                            li
+                                a(href="#") gitlab
+                            li
+                                a(href="#") telegram
+                            li
+                                a(href="#") gitlab
+                            li
+                                a(href="#") telegram
+                            li
+                                a(href="#") gitlab
+                            li
+                                a(href="#") telegram
+                    section.widget.widget-search
+                        h2 Search
+                        form(method="get" class="search-form" action="#")
+                            input(type="search" class="search-field" placeholder="Search...")
+                            button(type="submit" class="search-submit")
+
+            include footer.pug

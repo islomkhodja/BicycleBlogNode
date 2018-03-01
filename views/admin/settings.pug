@@ -1,0 +1,81 @@
+include head.pug
+body.sidebar-fixed.header-fixed
+		.page-wrapper
+			
+			include page-header.pug
+
+
+			.main-container
+				
+
+
+
+				include sidebar.pug
+				
+
+
+
+
+				.content
+					.container-fluid
+						.row
+							.col-md-2
+								.list-group
+									a.list-group-item(href='#') Profile
+									a.list-group-item.active(href='#') Account Settings
+									a.list-group-item(href='#') Notifications
+									a.list-group-item(href='#') Subscription
+							.col-md-10
+								.card
+									.card-header.bg-light
+										| Account Settings
+									.card-body
+										.row.mb-5
+											.col-md-4.mb-4
+												div Profile Information
+												.text-muted.small These information are visible to the public.
+											.col-md-8
+												.row
+													.col-md-6
+														.form-group
+															label.form-control-label Name
+															input.form-control
+													.col-md-6
+														.form-group
+															label.form-control-label Username
+															input.form-control
+												.row
+													.col-md-6
+														.form-group
+															label.form-control-label Email Address
+															input.form-control
+												.row
+													.col-md-6
+														.form-group
+															label.form-control-label Website Link
+															input.form-control
+										hr
+										.row.mt-5
+											.col-md-4.mb-4
+												div Access Credentials
+												.text-muted.small Leave credentials fields empty if you don't wish to change the password.
+											.col-md-8
+												.row
+													.col-md-6
+														.form-group
+															label.form-control-label Password
+															input.form-control(type='password')
+													.col-md-6
+														.form-group
+															label.form-control-label Password Confirmation
+															input.form-control(type='password')
+									.card-footer.bg-light.text-right
+										button.btn.btn-primary(type='submit') Save Changes
+		
+
+
+
+
+
+		include foot.pug										
+

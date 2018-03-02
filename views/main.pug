@@ -7,7 +7,15 @@ block main
                     h1
                         a(href="#") Ertaga
                     h6 Har doim ertaga amalga oshiraman.
+                    if user
+                        h5= user.user_name
+                        h4= user.user_email
+                        if user.user_type === "admin"
+                            h3= "You're admin"
+                        else 
+                            h3= "You're member"
                 div.header-menu
+                    //- select title from posts where post_type
                     ul
                         li.active
                             a(href="#") Home

@@ -3,7 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const passport = require('passport');
+const passport = require('./config/passport');
 const models = require('./models');
 
 const app = express();
@@ -20,7 +20,7 @@ app.set('view engine', 'pug');
  */
 app.use(logger('dev'));
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -44,7 +44,9 @@ app.use(passport.session());
 
 //- -- router middllewares
 app.use('/', require('./routes/home'));
-app.use('/admin', require('./routes/admin'))
+app.use('/admin', require('./routes/admin'));
+// app.use('/posts', require('./routes/posts'));
+
 
 //- error handler middlewares
 

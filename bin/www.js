@@ -35,7 +35,7 @@ var server = http.createServer(app);
 
 
 models.sequelize.sync(
-  {force:true}
+  // {force:true}
   ).then(function() {
   // console.log(models)
   server.listen(port);

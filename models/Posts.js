@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 		post_title: 		{type: DataTypes.STRING, allowNull: false},
 		post_content: 		{type: DataTypes.TEXT},
 		url_slug: 			{type: DataTypes.STRING, unique: true, allowNull: false},
-		post_type: 			{type: DataTypes.ENUM('page','post'), allowNull: false},
+		post_type: 			{type: DataTypes.ENUM('page', 'post', 'menu'), allowNull: false},
 		post_status: 		{type: DataTypes.ENUM('draft','publish','close', 'trash'), allowNull: false},
 		post_created_time: 	{type: DataTypes.DATE, defaultValue: DataTypes.NOW, allowNull: false},
 		post_modified_time: {type: DataTypes.DATE, defaultValue: DataTypes.NOW, allowNull: false},

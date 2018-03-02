@@ -18,10 +18,15 @@ module.exports = {
       }], {});
     */
    return queryInterface.bulkInsert('users', [{
-            user_name: chance.first(),
-            user_email: chance.email(),
+            user_name: "Islomkhodja",
+            user_email: "hamidullakhodjaev@gmail.com",
             user_pass: md5("test"),
             user_register_time: new Date()
+        }, {
+          user_name: "Hamidullakhodja",
+          user_email: "toshkentmetro@gmail.com",
+          user_pass: md5("test"),
+          user_register_time: new Date()
         }], {});
   },
 

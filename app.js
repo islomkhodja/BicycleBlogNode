@@ -43,6 +43,31 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //- -- router middllewares
+app.get('/testform', (req, res, next) => {
+	res.send(`
+<!DOCTYPE html>
+<html>
+<body>
+
+<form action="/testform" method="post">
+<input type="checkbox" name="category[0]" value="Bike">I have a bike
+<br>
+<input type="checkbox" name="category[1]" value="Car">I have a car 
+<br>
+<input type="checkbox" name="category[2]" value="Boat">I have a boat
+<br>
+<input type="submit">
+</form> 
+
+</body>
+</html>
+		`)
+})
+
+app.post('/testform', (req, res, next) => {
+	res.json(req.body);
+});
+
 app.use('/', require('./routes/home'));
 app.use('/admin', require('./routes/admin'));
 // app.use('/posts', require('./routes/posts'));

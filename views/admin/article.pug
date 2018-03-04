@@ -50,7 +50,7 @@ body.sidebar-fixed.header-fixed
 								.card
 									.card-header.bg-success
 										| Tags
-									.card-body 
+									.card-body
 										.form-group
 											label.col-sm-3.control-label(for='tags') Tags
 											.col-sm-9
@@ -59,28 +59,31 @@ body.sidebar-fixed.header-fixed
 								.card
 									.card-header.bg-success
 										| URL Slug
-									.card-body 
-										p=" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus voluptas blanditiis odit beatae sunt obcaecati libero quos vel sit nemo nesciunt est iusto, qui amet repudiandae aspernatur officia molestias laborum."		
+									.card-body
+										.form-group
+											label.col-sm-4.control-label(for='slug') URL slug
+											input.form-control#slug(type='text', name='tags', value='')
+											| 		
 							.col-md-9
-								
-
 								.row
 									.col-md-12
 										p= user.user_name
 										
 										.card
 											.card-header.bg-light
-												| Basic Forms
+												| Add new article
 											.card-body
 												.form-group
 													label.form-control-label(for='normal-input') Heading
-													input#normal-input.form-control(value='Input value')
+													input#normal-input.form-control(placeholder="write your article heading",value='')
 												textarea(name="content" id="editor")
 													p="Here goes the initial content of the editor."
 												br
 
 												br
 												br
+												button.btn.btn-primary.right
+													| Post this article
 												.row
 													.col-md-4
 														.form-group
@@ -282,7 +285,7 @@ body.sidebar-fixed.header-fixed
 
 
 
-		//- script(src='/vendor/ckeditor/ckeditor.js')
+		script(src='/vendor/ckeditor/ckeditor.js')
 		script(type="text/javascript").
 			ClassicEditor
 			    .create( document.querySelector( '#editor' ) )

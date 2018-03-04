@@ -29,7 +29,7 @@ router.
 //should be POST
 router.get('/logout', users.logout);
 
-router.route('/register',)
+router.route('/register')
 	.get(users.isNotLogged, (req, res) => {
 	  res.render("admin/register");
 	})

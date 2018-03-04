@@ -3,6 +3,10 @@ const passport = require("passport");
 const chalk = require('chalk')
 exports.isAuth = (req, res, next) => {
 	// debug('isAuth`ga keldi');
+	console.log(chalk.yellow("path"), req.path);
+	if(req.path === "/login" || req.path === "/register") {
+	  return next();
+	}
 	req.isAuthenticated()
 		? next()
 		: res.redirect('/admin/login')

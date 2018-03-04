@@ -69,7 +69,7 @@ app.post('/testform', (req, res, next) => {
 });
 
 app.use('/', require('./routes/home'));
-app.use('/admin', require('./routes/admin'));
+app.use('/admin', require('./controllers/users.controller').isAuth, require('./routes/admin'));
 // app.use('/posts', require('./routes/posts'));
 
 

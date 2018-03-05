@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express();
-const users = require('../controllers/users.controller.js')
+const users = require('../controllers/users.controller');
+const posts = require('../controllers/posts.controller');
 const chalk = require('chalk')
 
 
@@ -44,6 +45,11 @@ router.route('/article')
 	})
 	.post((req, res, next) => {
 
+	})
+
+router.route('/test/tag')
+	.get((req, res, next) => {
+		
 	})
 
 

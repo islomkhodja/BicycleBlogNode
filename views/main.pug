@@ -98,31 +98,18 @@ block main
                     section.widget.widget-categories
                         h2 Categories
                         ul
-                            li
-                                a(href="#") Dev
-                                | (#{dev_category})
-                            li
-                                a(href="#") Think About It
-                                |(1)
+                            each category in categories
+                                li
+                                    a(href="/category/" + category.term_slug)=category.term_name
+                                    | (#{category.term_count})
+                                
                     section.widget.widget-tags
                         h2 Tags
                         ul.wp-tag-cloud
-                            li
-                                a(href="#") gitlab
-                            li
-                                a(href="#") telegram
-                            li
-                                a(href="#") gitlab
-                            li
-                                a(href="#") telegram
-                            li
-                                a(href="#") gitlab
-                            li
-                                a(href="#") telegram
-                            li
-                                a(href="#") gitlab
-                            li
-                                a(href="#") telegram
+                            each tag in tags
+                                li
+                                    a(href="/tags/" + tag.term_slug)=tag.term_name
+                                
                     section.widget.widget-search
                         h2 Search
                         form(method="get" class="search-form" action="#")

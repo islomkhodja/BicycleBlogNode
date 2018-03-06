@@ -26,89 +26,57 @@ block main
             div#content
                 div#primary
                     main#main.site-main
-                        article.post
-                            header.entry-header
-                                h2.entry-title
-                                    a(href="#") Git buyruqlari
-                            div.content
-                                p Assalomu Aleykum, Dunyo! Git buyruqlarini oʻrganamiz. Dasturchilar gitni juda koʻp ishlatishadi. Buni bilish shart.
-                                p
-                                    img(src="https://www.derekgourlay.com/images/finn_upset.png" alt="iamge")
-                                p
-                                    a(href="#" class="more-read") Continue reading...
-                            footer.entry-data
-                                span
-                                    a(href="#") December 13, 2017
-                                span
-                                    a(href="#") Dev
-                                span
-                                    a(href="#") git, github, gitlab
-                                span
-                                    a(href="#") Leave a comment
-                                span
-                                    a(href="#") Edit
-                                //December 13, 2017
-                                //Categories Dev
-                                //Tags git, github, gitlab
-                                //Leave a comment on Git buyruqlari
-                                //Edit
-                        article.post
-                            header.entry-header
-                                h2.entry-title
-                                    a(href="#") Git buyruqlari
-                            div.content
-                                p Assalomu Aleykum, Dunyo! Git buyruqlarini oʻrganamiz. Dasturchilar gitni juda koʻp ishlatishadi. Buni bilish shart.
-                                p
-                                    img(src="https://www.derekgourlay.com/images/finn_upset.png" alt="iamge")
-                                p
-                                    a(href="#" class="more-read") Continue reading..
-                            footer.entry-data
-                                span
-                                    a(href="#") December 13, 2017
-                                span
-                                    a(href="#") Dev
-                                span
-                                    a(href="#") git, github, gitlab
-                                span
-                                    a(href="#") Leave a comment
-                                span
-                                    a(href="#") Edit
-                        article.post
-                            header.entry-header
-                                h2.entry-title
-                                    a(href="#") Git buyruqlari
-                            div.content
-                                p Assalomu Aleykum, Dunyo! Git buyruqlarini oʻrganamiz. Dasturchilar gitni juda koʻp ishlatishadi. Buni bilish shart.
-                                p
-                                    img(src="https://www.derekgourlay.com/images/finn_upset.png" alt="iamge")
-                                p
-                                    a(href="#" class="more-read") Continue reading..
-                            footer.entry-data
-                                span
-                                    a(href="#") December 13, 2017
-                                span
-                                    a(href="#") Dev
-                                span
-                                    a(href="#") git, github, gitlab
-                                span
-                                    a(href="#") Leave a comment
-                                span
-                                    a(href="#") Edit
+                        if posts
+                            each post in posts
+                                article.post
+                                    header.entry-header
+                                        h2.entry-title
+                                            a(href="/post/" + post.url_slug)=post.post_title
+                                    div.content
+                                        p= post.post_content
+                                        p
+                                            img(src="https://www.derekgourlay.com/images/finn_upset.png" alt="iamge")
+                                        p
+                                            a(href="#" class="more-read") Continue reading...
+                                    footer.entry-data
+                                        span
+                                            a(href="#")= post.post_created_time
+                                        span
+                                            a(href="#") 
+                                                each category in post.categories
+                                                    | #{category['term.term_name']},
+                                        span
+                                            a(href="#") 
+                                                each tag in post.tags
+                                                    | #{tag['term.term_name']}, 
+                                        if post.comment_status !== "close"
+                                            span
+                                                a(href="#")  
+                                                    | Leave a comment
+                                        if user && post.userUserId === user.user_id
+                                            span
+                                                a(href="/admin/article/edit?=" + post.post_id) Edit
+                                        //December 13, 2017
+                                        //Categories Dev
+                                        //Tags git, github, gitlab
+                                        //Leave a comment on Git buyruqlari
+                                        //Edit
                 aside#secondary.sidebar
-                    section.widget.widget-categories
-                        h2 Categories
-                        ul
-                            each category in categories
-                                li
-                                    a(href="/category/" + category.term_slug)=category.term_name
-                                    | (#{category.term_count})
-                                
-                    section.widget.widget-tags
-                        h2 Tags
-                        ul.wp-tag-cloud
-                            each tag in tags
-                                li
-                                    a(href="/tags/" + tag.term_slug)=tag.term_name
+                    if categories && tags
+                        section.widget.widget-categories
+                            h2 Categories
+                            ul
+                                each category in categories
+                                    li
+                                        a(href="/category/" + category.term_slug)=category.term_name
+                                        | (#{category.term_count})
+                                    
+                        section.widget.widget-tags
+                            h2 Tags
+                            ul.wp-tag-cloud
+                                each tag in tags
+                                    li
+                                        a(href="/tags/" + tag.term_slug)=tag.term_name
                                 
                     section.widget.widget-search
                         h2 Search

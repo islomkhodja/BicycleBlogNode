@@ -32,82 +32,70 @@ models.sequelize.sync().then(function() {
 
 	//*HOME
 
-	// models.terms.findAll({
-	// 	attributes: ['term_name', 'term_slug', 'term_count'],
+	// models.posts.findAll({
+	// 	order: ['post_created_time', 'DESC'],
 	// 	where: {
-	// 		term_type:'category'
-	// 	}
-	// }).then(data => {
-	// 	console.log(chalk.yellow("category data length"), data.length);
-	// 	data.forEach(obj => {
-	// 		console.log(chalk.red("category data:"), obj.dataValues);
-	// 	})
-
-	// 	return models.terms.findAll({
-	// 		attributes: ['term_name', 'term_slug', 'term_count'],
-	// 		where : {
-	// 			term_type: 'post_tag'
-	// 		}
-	// 	})
-	// }).then(data => {
-	// 	console.log(chalk.yellow("post_tag data length"), data.length);
-	// 	data.forEach(obj => {
-	// 		console.log(chalk.red("post_tag data:"), obj.dataValues);
-	// 	})
+	// 		post_type: 'post',
+	// 		post_status: 'publish'
+	// 	},
+	// 	include: [{
+	// 			model: models.terms_relationship,
+	// 			include: [ models.terms] 
+	// 	}]
 	// })
-	// 
-	
-	//doesn't work
-	// models.terms.getAllTags().then(data => {
-	// 	console.log(chalk.yellow("category data length"), data.length);
-	// 	data.forEach(obj => {
-	// 		console.log(chalk.red("category data:"), obj.dataValues);
-	// 	})
+	// .then(data => {
+	// 	console.log(data);
 	// })
-	// 
-	function a() {
-		return models.terms.findAll({
-				attributes: ['term_name', 'term_slug', 'term_count'],
-				where: {
-					term_type:'category'
-				}
-			})
-	}
 
-	function b() {
-		return models.terms.findAll({
-				attributes: ['term_name', 'term_slug', 'term_count'],
-				where: {
-					term_type:'post_tag'
-				}
-			})
-	}
-	Promise.all([
-			models.terms.findAll({
-				attributes: ['term_name', 'term_slug', 'term_count'],
-				where: {
-					term_type:'category'
-				},
-				raw: true
-			}),
-			models.terms.findAll({
-				attributes: ['term_name', 'term_slug', 'term_count'],
-				where: {
-					term_type:'post_tag'
-				},
-				raw: true
-			}),
-		]).then(completed => {
-			categories = completed[0];
-			tags = completed[1];
-			console.log( completed);
-			categories.forEach(category => {
-				console.log(category.dataValues);
-			})
+	// Promise.all([
+	// 		models.posts.findAll({
+	// 			order: [['post_id', 'DESC']],
+	// 			where: {	
+	// 				"post_type": "post",
+	// 				"post_status": "publish"
+	// 			},
+	// 			include : [
+	// 					{
+	// 						attributes: ['user_name', 'user_type'],
+	// 						model: models.users,
+	// 					}
+	// 				],
 
-			tags.forEach(tag => {
-				console.log(tag.dataValues);
-			})
-		})
+	// 			raw:true
+	// 		}),
+	// 		models.terms_relationship.findAll({
+	// 			include: [
+	// 				{
+	// 					// attributes: ['user_name', 'user_type'],
+	// 					model: models.terms,
+	// 				}
+	// 			], 
+	// 			raw: true
+	// 		})
+	// ]).then((data) => {
+	// 	// console.log(data);
+	// 	var posts = data[0];
+	// 	var terms = data[1];
+	// 	var result = posts.map((post) => {
+ 	
+	// 		post.tags = terms.filter((tag) => {
+	// 			if(tag["postPostId"] === post["post_id"] && tag["term.term_type"] === "post_tag") {
+	// 				return tag;
+	// 			}
+	// 		})
+
+	// 		post.categories = terms.filter((tag) => {
+	// 			if(tag["postPostId"] === post["post_id"] && tag["term.term_type"] === "category") {
+	// 				return tag;
+	// 			}
+	// 		});
+
+	// 		return post
+	// 	})
+
+
+	// 	console.log(chalk.green("result"), result);
+
+	// })
 
 }).catch(err => console.log("Connection Error:", err));

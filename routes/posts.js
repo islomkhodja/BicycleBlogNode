@@ -8,3 +8,11 @@ router.get('/article/:slug', (req, res, next) => {
 
 // router.post('/article/new')
 
+
+router.get('/article/:url-slug', (req, res, next) => {
+
+});
+
+
+
+

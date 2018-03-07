@@ -1,7 +1,11 @@
 const models = require("../models");
 
-exports.main = async (req, res, next) => {
+exports.getUserToTemplate = (req, res, next) => {
 	res.locals.user = req.user;
+	next();
+}
+
+exports.getTagAndCategory = async (req, res, next) => {
 	await Promise.all([
 			models.terms.findAll({
 				attributes: ['term_name', 'term_slug', 'term_count'],
@@ -23,12 +27,14 @@ exports.main = async (req, res, next) => {
 			
 			res.locals.tags = tags;
 			res.locals.categories = categories;
-			// return res.render("index")
+			next();
 		}).catch(err => {
 			return next(err);
 		})
+}
 
-	await Promise.all([
+exports.getPosts = async (req, res, next) => {
+	 Promise.all([
 			models.posts.findAll({
 				order: [['post_id', 'DESC']],
 				where: {	
@@ -76,9 +82,12 @@ exports.main = async (req, res, next) => {
 
 		res.locals.posts = result;
 		// console.log(chalk.green("result"), result);
+		return res.render("index");
 
+	}).catch(err => {
+		return next(err);
 	})
 
-	return res.render("index");
+	
 }
 

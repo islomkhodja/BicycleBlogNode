@@ -68,7 +68,10 @@ app.post('/testform', (req, res, next) => {
 	res.json(req.body);
 });
 
-app.use('/', require('./routes/home'));
+app.use('/', (req, res, next) => {
+	res.locals.user = req.user;
+	next();
+},require('./routes/home'));
 app.use('/admin', require('./controllers/users.controller').isAuth, require('./routes/admin'));
 // app.use('/posts', require('./routes/posts'));
 

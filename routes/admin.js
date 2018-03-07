@@ -5,12 +5,6 @@ const posts = require('../controllers/posts.controller');
 const chalk = require('chalk')
 
 
-router.use((req, res, next) => {
-	console.log("testsetset",req.user);
-	res.locals.user = req.user;
-	next();
-})
-
 
 router.get('/', users.isAuth, users.isAdmin, (req,res)=> {
   // console.log('dsadagfasdagasdasf',req.user);

@@ -1,0 +1,109 @@
+include ../head.pug
+body.sidebar-fixed.header-fixed
+		.page-wrapper
+			
+			include ../page-header.pug
+
+
+			.main-container
+				
+
+
+
+				include ../sidebar.pug
+				
+
+
+				
+
+				.content
+					.row
+						.col-md-5
+							.card
+								.card-header.bg-light
+									| Add new category
+								form(action="/admin/article/tags", method="POST").card-body
+									.row
+										.col-md-9.form-group
+											label(for="categoryName").form-control-label Name
+											input(placeholder="Enter category name", type="text", name="term_name")#categoryName.form-control
+											small.form-text The name determines how the item will be displayed on your blog.
+									.row
+										.col-md-9.form-group
+											label(for="categorySlug").form-control-label Slug
+											input(placeholder="Enter category slug", type="text", name="term_slug")#categorySlug.form-control
+											small.form-text "Slug" is a variant of the name, suitable for the URL. Usually contains only Latin letters in lower case, numbers and hyphens.
+									.row
+										.col-md-9.form-group
+											input(type="submit", value="Submit").btn.btn-primary
+						.col-md-7
+							.card
+								.card-header.bg-light
+									| All tags
+								.card-body
+									if !edit
+										.table-responsive
+											table.table
+												thead
+													tr
+														th Name
+														th Slug
+														th Count
+														th edit
+														th delete
+												tbody
+														if tags.length !== 0
+															each tag in tags	
+																// - i = i + 1
+																tr
+																	//- td= i
+																	td.text-nowrap= tag.term_name
+																	td= tag.term_slug
+																	td= tag.term_count
+																	td 
+																		a(href='/admin/article/tags?edit='+tag.term_slug).btn.btn-warning Edit
+																	td
+																		if tag.term_count === 0
+																			form(action="/admin/article/tags", method="POST")
+																				input(type="hidden", name="_method", value="DELETE")
+																				button(title="you can delete now", name="term_slug", value=tag.term_slug).btn.btn-danger Delete
+																		else
+																			button(title="you can't delete now", disabled).btn.btn-danger Delete
+														else
+															span no data...
+									else
+										form(action="/admin/article/tags", method="POST").card-body
+											input(type="hidden", name="_method", value="PUT")
+											input(type="hidden", name="old_term_slug", value=tag.term_slug)
+											.row
+												.col-md-9.form-group
+													label(for="edittagName").form-control-label Name
+													input(placeholder="Enter tag name", type="text", name="term_name", value=tag.term_name)#edittagName.form-control
+													small.form-text The name determines how the item will be displayed on your blog.
+											.row
+												.col-md-9.form-group
+													label(for="edittagSlug").form-control-label Slug
+													input(placeholder="Enter tag slug", type="text", name="term_slug", value=tag.term_slug)#edittagSlug.form-control
+													small.form-text "Slug" is a variant of the name, suitable for the URL. Usually contains only Latin letters in lower case, numbers and hyphens.
+											.row
+												.col-md-9.form-group
+													input(type="submit", value="Submit").btn.btn-primary
+
+		
+
+
+
+
+		//- script(src='/vendor/ckeditor/ckeditor.js')
+		//- script(type="text/javascript").
+		//- 	ClassicEditor
+		//- 		.create( document.querySelector( '#editor' ) )
+		//- 		.then( editor => {
+		//- 			console.log( editor );
+		//- 		} )
+		//- 		.catch( error => {
+		//- 			console.error( error );
+		//- 		} );
+		include ../foot.pug										
+		script(src='/js/jquery.tagsinput.min.js')
+

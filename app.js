@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const passport = require('./config/passport');
 const models = require('./models');
 const compression = require('compression')
+const methodOverride = require('method-override');
 
 const app = express();
 /*
@@ -23,6 +24,15 @@ app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride(function (req) {
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+      // look in urlencoded POST bodies and delete it
+      var method = req.body._method;
+      delete req.body._method;
+      return method;
+    }
+  }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

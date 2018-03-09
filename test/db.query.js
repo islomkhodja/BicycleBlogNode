@@ -142,7 +142,7 @@ models.sequelize.sync().then(function() {
 	// })
 	// .then(data => console.log(data))
 
-	models.posts.getPostBySlug('lorem-woarld').then(data => console.log(data)).catch(err => console.log(err))
+	//models.posts.getPostBySlug('lorem-woarld').then(data => console.log(data)).catch(err => console.log(err))
 
 
 }).catch(err => console.log("Connection Error:", err));

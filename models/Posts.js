@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
 			raw:true,
 		})	
 	}
-
+///
 
 	Posts.getPostsById = (whereArray) => {
 		if(Array.isArray(whereArray)) {

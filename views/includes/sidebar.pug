@@ -1,0 +1,21 @@
+aside#secondary.sidebar
+	if categories && tags
+		section.widget.widget-categories
+			h2 Categories
+			ul
+				each category in categories
+					li
+						a(href="/category/" + category.term_slug)=category.term_name
+							| (#{category.term_count})
+		section.widget.widget-tags
+			h2 Tags
+			ul.wp-tag-cloud
+				each tag in tags
+					li
+						a(href="/tags/" + tag.term_slug)=tag.term_name
+	            
+	section.widget.widget-search
+		h2 Search
+		form(method="get" class="search-form" action="#")
+			input(type="search" class="search-field" placeholder="Search...")
+			button(type="submit" class="search-submit")

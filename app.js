@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('./config/passport');
 const models = require('./models');
+const compression = require('compression')
 
 const app = express();
 /*
@@ -14,6 +15,7 @@ app.set('port', 3030);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(compression());
 
 /*
 	Middlewares
@@ -64,16 +66,18 @@ app.get('/testform', (req, res, next) => {
 		`)
 })
 
-app.post('/testform', (req, res, next) => {
-	res.json(req.body);
-});
+app
+	.post('/testform', (req, res, next) => {
+		res.json(req.body);
+	});
 
-app.use('/', (req, res, next) => {
-	res.locals.user = req.user;
-	next();
-},require('./routes/home'));
-app.use('/admin', require('./controllers/users.controller').isAuth, require('./routes/admin'));
-// app.use('/posts', require('./routes/posts'));
+app
+	.use('/', require('./routes/main'));
+
+
+app
+	.use('/admin', require('./controllers/users.controller').isAuth, require('./routes/admin'));
+
 
 
 //- error handler middlewares

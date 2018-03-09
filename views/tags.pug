@@ -1,0 +1,59 @@
+include includes/header.pug
+body
+	div#page
+		div.site-inner
+			header#top-header
+				include includes/welcome
+				include includes/menu
+			div#content
+				div#primary
+					main#main.site-main
+						h1 Tag: #{tag}
+						hr
+						if posts
+							if posts.length !== 0
+								each post in posts
+									article.post
+										header.entry-header
+											h2.entry-title
+												a(href="/post/" + post.url_slug)=post.post_title
+										div.content
+											p= post.post_content
+											p
+												a(href="#" class="more-read") Continue reading...
+										footer.entry-data
+											span
+												a(href="#")= post['user.user_name']
+											span
+												a(href="#")= post.post_created_time
+											span
+												a(href="#") 
+													each category in post.categories
+														| #{category['term.term_name']},
+											span
+												a(href="#") 
+													each tag in post.tags
+														| #{tag['term.term_name']}, 
+											if post.comment_status !== "close"
+												span
+													a(href="#")  
+														| Leave a comment
+											if user && post.userUserId === user.user_id
+												span
+													a(href="/admin/article/edit?=" + post.post_id) Edit
+											//December 13, 2017
+											//Categories Dev
+											//Tags git, github, gitlab
+											//Leave a comment on Git buyruqlari
+							else
+								div.nextPage
+									span(style="font-size: 60px;")
+										| Boshqa postlar yo'q
+						//- if posts.length === 5
+						//- 	div.nextPage
+						//- 		span(style="font-size: 60px;")
+						//- 			-page = page + 1;
+						//- 			a(href="?page="+ page, style="text-decoration:none; color:#a0e0e0")="next"
+				include includes/sidebar
+
+			include includes/footer.pug

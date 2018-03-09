@@ -50,21 +50,23 @@ module.exports = (sequelize, DataTypes) => {
 
 	};
 
-	Terms.prototype.getAllCategory = function() {
+	Terms.getAllCategory = function() {
 		return Terms.findAll({
 			attributes: ['term_name', 'term_slug', 'term_count'],
 			where: {
 				term_type:'category'
-			}
+			},
+			raw:true
 		})
 	}
 
-	Terms.prototype.getAllTags = function() {
+	Terms.getAllTags = function() {
 		return Terms.findAll({
 			attributes: ['term_name', 'term_slug', 'term_count'],
 			where: {
 				term_type:'post_tag'
-			}
+			},
+			raw:true
 		})
 	};
 

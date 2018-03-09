@@ -46,5 +46,80 @@ module.exports = (sequelize, DataTypes) => {
 		});
 	}
 
+	Posts.getOffsetPostsId = (offsetNumber, limitNumber) => {
+		return Posts.findAll({ 
+			offset: offsetNumber, limit: limitNumber,
+			where: {	
+					"post_type": "post",
+					"post_status": "publish",
+				},
+			attributes: ['post_id'],
+			raw:true,
+		})	
+	}
+
+
+	Posts.getPostsById = (whereArray) => {
+		if(Array.isArray(whereArray)) {
+			return Posts.findAll({
+				attributes: ['post_id', 'post_title', [sequelize.fn('SUBSTRING', sequelize.col('post_content'), 1, 150),'post_content'], 'url_slug', 'comment_status', 'comment_count', 'userUserId', 'post_created_time', 'user.user_name'],
+				order: [['post_created_time', 'DESC']],
+				where: {	
+					"post_type": "post",
+					"post_status": "publish",
+					"post_id" : whereArray
+				},
+				include : [
+						{
+							attributes: ['user_name', 'user_type'],
+							model: sequelize.models.users,
+						}
+					],
+
+				raw:true
+			})	
+		}
+	}
+
+
+
+
+
+	Posts.getPostBySlug = async (url_slug) => {
+		if(typeof url_slug === "string") {
+			try {
+				let post = await Posts.findOne({
+					attributes: ['post_id', 'post_title', 'post_content', 'url_slug', 'comment_status', 'comment_count', 'userUserId', 'post_created_time'],
+					
+					where: {	
+						"post_type": "post",
+						"post_status": "publish",
+						"url_slug" : url_slug
+					},
+
+					include : [
+							{
+								attributes: ['user_name', 'user_type'],
+								model: sequelize.models.users,
+							}
+						],
+
+					raw:true
+				})
+				
+				let terms = await sequelize.models.terms_relationship.getAllTermsByPostId(post.post_id);				
+				let arr = []; arr.push(post);
+				let result = arr.map((post) => {
+					post.tags = terms.filter(tag => tag["postPostId"] === post["post_id"] && tag["term.term_type"] === "post_tag")
+					post.categories = terms.filter(tag => tag["postPostId"] === post["post_id"] && tag["term.term_type"] === "category");
+					return post
+				})
+				return result[0];
+			} catch (error) {
+				throw new Error(error);
+			}
+		}
+	}
+
 	return Posts;
 }

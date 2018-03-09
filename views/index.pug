@@ -1,3 +1,13 @@
-include header.pug
+include includes/header.pug
 body
-  include main.pug
+  div#page
+        div.site-inner
+            header#top-header
+                include includes/welcome
+                include includes/menu
+            div#content
+                div#primary
+                    include main
+                include includes/sidebar
+
+            include includes/footer.pug

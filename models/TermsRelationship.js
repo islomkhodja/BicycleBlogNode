@@ -12,22 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 			primaryKey: true, 
 			allowNull: false,
 			autoIncrement: true 
-		},
-
-		// post_id: {
-		// 	type: DataTypes.INTEGER, 
-		// 	references: {
-		// 		model: Posts,
-		// 		key: 'post_id'
-		// 	}
-		// },
-		// term_id: {
-		// 	type: DataTypes.INTEGER, 
-		// 	references: {
-		// 		model: Terms,
-		// 		key: 'term_id'
-		// 	}
-		// },
+		}
 	},{
   timestamps: false
 });
@@ -47,6 +32,61 @@ module.exports = (sequelize, DataTypes) => {
 			}
 		});		
 	}
+
+	TermsRelationship.getAllTermsByPostId = (wherePostsId) => {
+		return TermsRelationship.findAll({
+				include: [
+					{
+						// attributes: ['user_name', 'user_type'],
+						model: sequelize.models.terms,
+					}
+				],
+				where : {
+					postPostId: wherePostsId	
+				},
+				raw: true
+			})
+	}
+
+	TermsRelationship.getAllPostsIdByTags = (whichTag, offset, limit) => {
+		//offset, limit, wherePostsId
+		return TermsRelationship.findAll({
+			offset: offset, limit: limit,
+			attributes: ['postPostId'],
+			include : [				
+				{
+					model: sequelize.models.terms,
+					where: {
+						term_type : 'post_tag',
+						term_slug : whichTag	
+					},
+				}
+			],
+			
+			raw: true
+		})
+	}
+
+
+	TermsRelationship.getAllPostsIdByCategory = (whichTag, offset, limit) => {
+		//offset, limit, wherePostsId
+		return TermsRelationship.findAll({
+			offset: offset, limit: limit,
+			attributes: ['postPostId'],
+			include : [				
+				{
+					model: sequelize.models.terms,
+					where: {
+						term_type : 'category',
+						term_slug : whichTag	
+					},
+				}
+			],
+			
+			raw: true
+		})
+	}
+	
 
 	return TermsRelationship;
 }

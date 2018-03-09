@@ -1,30 +1,15 @@
 const models = require("../models");
-
-exports.getUserToTemplate = (req, res, next) => {
-	res.locals.user = req.user;
-	next();
-}
-
+const chalk = require('chalk');
+const postProcessing = require('./util/postProcessing');
 exports.getTagAndCategory = async (req, res, next) => {
+	console.log(chalk.red("getTagAndCategory ishlavotti"))
 	await Promise.all([
-			models.terms.findAll({
-				attributes: ['term_name', 'term_slug', 'term_count'],
-				where: {
-					term_type:'category'
-				},
-				raw: true
-			}),
-			models.terms.findAll({
-				attributes: ['term_name', 'term_slug'],
-				where: {
-					term_type:'post_tag'
-				},
-				raw: true
-			}),
+			models.terms.getAllCategory(),
+			models.terms.getAllTags(),
 		]).then(completed => {
 			categories = completed[0];
 			tags = completed[1];
-			
+			console.log(categories);
 			res.locals.tags = tags;
 			res.locals.categories = categories;
 			next();
@@ -33,61 +18,37 @@ exports.getTagAndCategory = async (req, res, next) => {
 		})
 }
 
-exports.getPosts = async (req, res, next) => {
-	 Promise.all([
-			models.posts.findAll({
-				order: [['post_id', 'DESC']],
-				where: {	
-					"post_type": "post",
-					"post_status": "publish"
-				},
-				include : [
-						{
-							attributes: ['user_name', 'user_type'],
-							model: models.users,
-						}
-					],
+exports.getPostsWithOffset = async (req, res, next) => {
+	let offset = 0;
+	let limit  = 5;
+	// console.log(yellow("page"), req.query.page)
+	if(typeof req.query.page !== "undefined" && req.query.page !== null) {
+		offset = req.query.page * limit;
+	} else {
+		req.query.page = 1;
+	}
+	console.log(chalk.red("offset and limit"), offset, limit);
 
-				raw:true
-			}),
-			models.terms_relationship.findAll({
-				include: [
-					{
-						// attributes: ['user_name', 'user_type'],
-						model: models.terms,
-					}
-				], 
-				raw: true
-			})
+	let id = await models.posts.getOffsetPostsId(offset, limit);
+	let _id = id.map(post => post.post_id);
+	await Promise.all([
+		models.posts.getPostsById(_id),
+		models.terms_relationship.getAllTermsByPostId(_id)
 	]).then((data) => {
-		// console.log(data);
-		var posts = data[0];
-		var terms = data[1];
-		var result = posts.map((post) => {
- 	
-			post.tags = terms.filter((tag) => {
-				if(tag["postPostId"] === post["post_id"] && tag["term.term_type"] === "post_tag") {
-					return tag;
-				}
-			})
-
-			post.categories = terms.filter((tag) => {
-				if(tag["postPostId"] === post["post_id"] && tag["term.term_type"] === "category") {
-					return tag;
-				}
-			});
-
-			return post
-		})
-
-		res.locals.posts = result;
-		// console.log(chalk.green("result"), result);
-		return res.render("index");
-
+		if(data) {
+			let posts = data[0];
+			let terms = data[1];
+			let result = postProcessing(posts, terms);
+			console.log(result);
+			res.locals.posts = result;			
+		}
+		return res.render("index", {page: parseInt(req.query.page)});
 	}).catch(err => {
 		return next(err);
 	})
 
 	
 }
+
+
 

@@ -1,18 +1,15 @@
 const express = require('express');
 const router  = express.Router();
-
-router.get('/article/:slug', (req, res, next) => {
-	// if(article)
-	res.send(req.query.slug);	
-});
+const posts = require('../controllers/posts.controller.js')
+router.get('/:slug', posts.getPostBySlug);
 
 // router.post('/article/new')
 
 
-router.get('/article/:url-slug', (req, res, next) => {
+// router.get('/article/:url-slug', (req, res, next) => {
 
-});
+// });
 
-
+module.exports = router;
 
 

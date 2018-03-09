@@ -16,7 +16,7 @@ models.sequelize.sync().then(function() {
 	
 
 	// models.terms_relationship.findOne({
-	// 	attributes: [[models.sequelize.fn('GROUP_CONCAT', models.sequelize.col('term_slug')), 'tags_name'],[models.sequelize.fn('GROUP_CONCAT', models.sequelize.col('term_slug')), 'tags_slug']],
+		// attributes: [[models.sequelize.fn('GROUP_CONCAT', models.sequelize.col('term_slug')), 'tags_name'],[models.sequelize.fn('GROUP_CONCAT', models.sequelize.col('term_slug')), 'tags_slug']],
 	// 	where : {
 	// 		postPostId: 1
 	// 	},
@@ -97,5 +97,52 @@ models.sequelize.sync().then(function() {
 	// 	console.log(chalk.green("result"), result);
 
 	// })
+
+	// with offset and limit
+	// models.posts.findAll({ 
+	// 		offset: 0, limit: 5,
+	// 		where: {	
+	// 				"post_type": "post",
+	// 				"post_status": "publish",
+	// 			},
+	// 		attributes: ['post_id'],
+	// 		raw:true
+	// 	}).then(data => console.log(data.map(obj => obj.post_id)));
+
+	// GET POSTS WITH SUBSTRING
+	/* models.posts.findAll({
+		raw: true,
+		attributes: ['post_id', 'post_title', [models.sequelize.fn('SUBSTRING', models.sequelize.col('post_content'), 1, 150),'post_content'], 'url_slug', 'comment_status', 'comment_count', 'userUserId'],
+		where: {	
+					"post_type": "post",
+					"post_status": "publish"
+				},
+		include : [
+				{
+					attributes: ['user_name', 'user_type'],
+					model: models.users,
+				}
+			],
+	}).then(data => console.log(data)) */
+
+	// models.terms_relationship.findAll({
+	// 	attributes: ['postPostId'],
+	// 	include : [
+	// 		{
+
+	// 			model: models.terms,
+	// 			where: {
+	// 				term_type : 'post_tag',
+	// 				term_slug : 'css'	
+	// 			},
+	// 		}
+	// 	],
+		
+	// 	raw: true
+	// })
+	// .then(data => console.log(data))
+
+	models.posts.getPostBySlug('lorem-woarld').then(data => console.log(data)).catch(err => console.log(err))
+
 
 }).catch(err => console.log("Connection Error:", err));

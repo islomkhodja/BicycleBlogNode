@@ -1,88 +1,48 @@
-block main
-    div#page
-        h1=user_name
-        div.site-inner
-            header#top-header
-                div.header-hi
-                    h1
-                        a(href="#") Ertaga
-                    h6= useuse
-                     //- Har doim ertaga amalga oshiraman.
-                    if user
-                        h5= user.user_name
-                        h4= user.user_email
-                        if user.user_type === "admin"
-                            h3= "You're admin"
-                        else 
-                            h3= "You're member"
-                div.header-menu
-                    //- select title from posts where post_type
-                    ul
-                        li.active
-                            a(href="#") Home
-                        li
-                            a(href="#") About
-                        li
-                            a(href="#") Contact
-            div#content
-                div#primary
-                    main#main.site-main
-                        if posts
-                            each post in posts
-                                article.post
-                                    header.entry-header
-                                        h2.entry-title
-                                            a(href="/post/" + post.url_slug)=post.post_title
-                                    div.content
-                                        p= post.post_content
-                                        p
-                                            img(src="https://www.derekgourlay.com/images/finn_upset.png" alt="iamge")
-                                        p
-                                            a(href="#" class="more-read") Continue reading...
-                                    footer.entry-data
-                                        span
-                                            a(href="#")= post.post_created_time
-                                        span
-                                            a(href="#") 
-                                                each category in post.categories
-                                                    | #{category['term.term_name']},
-                                        span
-                                            a(href="#") 
-                                                each tag in post.tags
-                                                    | #{tag['term.term_name']}, 
-                                        if post.comment_status !== "close"
-                                            span
-                                                a(href="#")  
-                                                    | Leave a comment
-                                        if user && post.userUserId === user.user_id
-                                            span
-                                                a(href="/admin/article/edit?=" + post.post_id) Edit
-                                        //December 13, 2017
-                                        //Categories Dev
-                                        //Tags git, github, gitlab
-                                        //Leave a comment on Git buyruqlari
-                                        //Edit
-                aside#secondary.sidebar
-                    if categories && tags
-                        section.widget.widget-categories
-                            h2 Categories
-                            ul
-                                each category in categories
-                                    li
-                                        a(href="/category/" + category.term_slug)=category.term_name
-                                        | (#{category.term_count})
-                                    
-                        section.widget.widget-tags
-                            h2 Tags
-                            ul.wp-tag-cloud
-                                each tag in tags
-                                    li
-                                        a(href="/tags/" + tag.term_slug)=tag.term_name
-                                
-                    section.widget.widget-search
-                        h2 Search
-                        form(method="get" class="search-form" action="#")
-                            input(type="search" class="search-field" placeholder="Search...")
-                            button(type="submit" class="search-submit")
-
-            include footer.pug
+main#main.site-main
+    if posts
+        if posts.length !== 0
+            each post in posts
+                article.post
+                    header.entry-header
+                        h2.entry-title
+                            a(href="/article/" + post.url_slug)=post.post_title
+                    div.content
+                        p
+                            - content = post.post_content.replace(/(<([^>]+)>)/ig, ""); 
+                            .
+                                !{content}
+                        p
+                            a(href="/article/" + post.url_slug,  class="more-read") Continue reading...
+                    footer.entry-data
+                        span
+                            a(href="#" style="font-size: 18px")= post['user.user_name']
+                        span
+                            a(href="#")= post.post_created_time
+                        span
+                            a(href="#") 
+                                each category in post.categories
+                                    | #{category['term.term_name']},
+                        span
+                            a(href="#") 
+                                each tag in post.tags
+                                    | #{tag['term.term_name']}, 
+                        if post.comment_status !== "close"
+                            span
+                                a(href="#")  
+                                    | Leave a comment
+                        if user && post.userUserId === user.user_id
+                            span
+                                a(href="/admin/article/edit?id=" + post.post_id) Edit
+                        //December 13, 2017
+                        //Categories Dev
+                        //Tags git, github, gitlab
+                        //Leave a comment on Git buyruqlari
+        else
+            div.nextPage
+                span(style="font-size: 60px;")
+                    | Boshqa postlar yo'q
+    if posts.length === 5
+        div.nextPage
+            span(style="font-size: 60px;")
+                -page = page + 1;
+                a(href="?page="+ page, style="text-decoration:none; color:#a0e0e0")="next"

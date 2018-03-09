@@ -3,25 +3,8 @@ const chalk = require('chalk');
 const postProcessing = require('./util/postProcessing');
 
 
-exports.getTagsForEditArticle = (req, res, next) => {
-	let article = {};
-    /*
-	SELECT GROUP_CONCAT(terms.term_slug) as tags 
-	FROM `terms_relationships` 
-	inner join terms on terms.term_id = terms_relationships.termTermId 
-	where terms.term_type = 'post_tag' and terms_relationships.postPostId = 1
-	*/
 
-	// secondd variant
-	/*
-	SELECT GROUP_CONCAT(terms.term_slug) as tags 
-FROM `terms_relationships`, `terms` 
-WHERE terms.term_id = terms_relationships.termTermId 
-and terms.term_type = 'post_tag' and terms_relationships.postPostId = 1
-	 */
-}
-
-exports.getPostsByTagWithOffset = async (req, res, next) => {
+exports.getPostsByCategoryWithOffset = async (req, res, next) => {
 	let offset = 0;
 	let limit  = 5;
 	// console.log(yellow("page"), req.query.page)
@@ -32,7 +15,7 @@ exports.getPostsByTagWithOffset = async (req, res, next) => {
 	}
 	let id = ""
 	try {
-		id = await models.terms_relationship.getAllPostsIdByTags(req.params.tag, offset, limit);
+		id = await models.terms_relationship.getAllPostsIdByCategory(req.params.category, offset, limit);
 	} catch(err) {
 		return next(err);
 	}
@@ -50,8 +33,8 @@ exports.getPostsByTagWithOffset = async (req, res, next) => {
 
 			res.locals.posts = result;			
 		}
-		return res.render("tags", { 
-			tag: req.params.tag,
+		return res.render("category", { 
+			category: req.params.category,
 			page: parseInt(req.query.page)
 		});
 	}).catch(err => {

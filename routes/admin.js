@@ -41,6 +41,10 @@ router.route('/article')
 
 	})
 
+router.get('/article/new', (req, res, next) => {
+	res.render('admin/article')
+})
+
 router.route('/test/tag')
 	.get((req, res, next) => {
 		

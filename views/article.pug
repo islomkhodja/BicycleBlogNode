@@ -1,0 +1,46 @@
+include includes/header.pug
+body
+	div#page
+		div.site-inner
+			header#top-header
+				include includes/welcome
+				include includes/menu
+			div#content
+				div#primary
+					main#main.site-main
+						if post
+							article.post
+								header.entry-header
+									h2.entry-title
+										a(href="/article/" + post.url_slug)=post.post_title
+								div.content
+									p
+										- content = post.post_content; 
+										.
+											!{content}
+								footer.entry-data
+									span
+										a(href="#")= post['user.user_name']
+									span
+										a(href="#")= post.post_created_time
+									span
+										a(href="#") 
+											each category in post.categories
+												| #{category['term.term_name']},
+									span
+										a(href="#") 
+											each tag in post.tags
+												| #{tag['term.term_name']}, 
+									if user && user.isAdmin && post.userUserId === user.user_id
+										span
+											a(href="/admin/article/edit?id=" + post.post_id) Edit 
+									//December 13, 2017
+									//Categories Dev
+									//Tags git, github, gitlab
+				//Leave a comment on Git buyruqlari
+				include includes/sidebar
+
+			include includes/footer.pug
+
+
+

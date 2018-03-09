@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const category = require('../controllers/category.controller')
+router.get('/', (req, res, next) => {
+	res.redirect('/');
+})
+router.get('/:category', category.getPostsByCategoryWithOffset)	
 
-router.get('/category/:category-slug', (req, res, next) => {
-
-});
 
 module.exports = router;

@@ -1,9 +1,8 @@
 const models = require("../models");
 const chalk = require('chalk');
 const postProcessing = require('./util/postProcessing');
-exports.getTagAndCategory = async (req, res, next) => {
-	console.log(chalk.red("getTagAndCategory ishlavotti"))
-	await Promise.all([
+exports.getTagAndCategory = (req, res, next) => {
+	Promise.all([
 			models.terms.getAllCategory(),
 			models.terms.getAllTags(),
 		]).then(completed => {

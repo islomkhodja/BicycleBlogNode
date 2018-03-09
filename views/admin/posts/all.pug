@@ -1,0 +1,94 @@
+include ../head.pug
+body.sidebar-fixed.header-fixed
+		.page-wrapper
+			
+			include ../page-header.pug
+
+
+			.main-container
+				
+
+
+
+				include ../sidebar.pug
+				
+
+
+				
+
+				.content
+					.col-md-12
+						.card
+							.card-header.bg-light
+								| Normal Table
+							.card-body
+								.table-responsive
+									table.table
+										thead
+											tr
+												th Heading
+												th Author
+												th Categories
+												th Tags
+												th Comments
+												th Date
+												th action
+												th action
+										tbody
+											if posts
+												if posts.length !== 0
+													each post, i in posts	
+														// - i = i + 1
+														tr
+															//- td= i
+															td.text-nowrap= post.post_title
+															td= post['user.user_name']
+															td 
+																each category in post.categories
+																	| #{category['term.term_name']},
+															td 
+																each tag in post.tags
+																	| #{tag['term.term_name']}, 
+															td 
+																if post.comment_status === "close"
+																	| -
+																else 
+																	| #{post.comment_count}
+															td
+																- var date = post.post_created_time
+																- var yyyy = date.getFullYear();
+																- var M = date.getMonth()+1;
+																-  M = ("0" + M).slice(-2);
+																- var dd = date.getDate();
+																-  dd = ("0" + dd).slice(-2);
+																- var hh = date.getHours();
+																- hh = ("0" + hh).slice(-2);
+																- var mm = date.getMinutes();
+																- mm = ("0" + mm).slice(-2);
+																|#{`${hh}:${mm} ${dd}-${M}-${yyyy} `}
+															
+															td 
+																a(href='/admin/article/edit?id='+post.post_id).btn.btn-warning Edit
+															td
+																button.btn.btn-danger Delete
+												else
+													span no data...
+
+		
+
+
+
+
+		//- script(src='/vendor/ckeditor/ckeditor.js')
+		//- script(type="text/javascript").
+		//- 	ClassicEditor
+		//- 		.create( document.querySelector( '#editor' ) )
+		//- 		.then( editor => {
+		//- 			console.log( editor );
+		//- 		} )
+		//- 		.catch( error => {
+		//- 			console.error( error );
+		//- 		} );
+		include ../foot.pug										
+		script(src='/js/jquery.tagsinput.min.js')
+

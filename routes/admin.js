@@ -4,46 +4,33 @@ const users = require('../controllers/users.controller');
 const posts = require('../controllers/posts.controller');
 const chalk = require('chalk')
 
+const login = require('./admin/login');
+const logout = require('./admin/logout');
+const register = require('./admin/register')
+const article = require('./admin/article');
 
-
-router.get('/', users.isAuth, users.isAdmin, (req,res)=> {
+// users.isAuth, users.isAdmin, 
+router.get('/', (req,res)=> {
   // console.log('dsadagfasdagasdasf',req.user);
   // res.locals.user_name = req.user.user_name
    res.render('admin/index'); //{ user_name: req.user.user_name }
 });
 
 
-router.
-	route('/login')
-	.get(users.isNotLogged,(req, res) => {
-	  console.log('adminlogin')
-	  res.render("admin/login");
-	})
-	.post(users.login);
+router.use('/login', login);
 
 //should be POST
-router.get('/logout', users.logout);
+router.use('/logout', logout);
 
-router.route('/register')
-	.get(users.isNotLogged, (req, res) => {
-	  res.render("admin/register");
-	})
-	.post(users.register)
+router.use('/register', register); 
 
 
 // router.post('/register',  userController.register)
 
-router.route('/article')
-	.get((req, res, next) => {
-		res.render('admin/article')
-	})
-	.post((req, res, next) => {
+router.use('/article', article)
+	
 
-	})
 
-router.get('/article/new', (req, res, next) => {
-	res.render('admin/article')
-})
 
 router.route('/test/tag')
 	.get((req, res, next) => {

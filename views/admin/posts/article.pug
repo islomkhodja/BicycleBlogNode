@@ -1,0 +1,300 @@
+include ../head.pug
+body.sidebar-fixed.header-fixed
+		.page-wrapper
+			
+			include ../page-header.pug
+
+
+			.main-container
+				
+
+
+
+				include ../sidebar.pug
+				
+
+
+				
+
+				.content
+					.container-fluid
+						.row.mt-4
+							.col-md-3
+								.card
+									.card-header.bg-success
+										| Categories
+									.card-body 
+										ul.nav.nav-tabs(role='tablist')
+											li.nav-item
+												a.nav-link.active(data-toggle='tab', href='#home', role='tab', aria-controls='home') All Categories
+											li.nav-item
+												a.nav-link(data-toggle='tab', href='#profile', role='tab', aria-controls='profile') Recent Categories
+										.tab-content
+											#home.tab-pane.active(role='tabpanel')
+												input(type='checkbox', name='category[0]', value='backend')
+												|  Backend
+												br
+												input(type='checkbox', name='category[1]', value='frontend')
+												|  Frontend
+												
+												//- input(type="checkbox") 
+												
+											#profile.form-group.tab-pane(role='tabpanel')
+												input(type='checkbox', name='category[0]', value='backend')
+												|  Backend
+
+										br
+										a(href="#")
+											| + Add new category
+								br
+								.card
+									.card-header.bg-success
+										| Tags
+									.card-body
+										.form-group
+											label.col-sm-3.control-label(for='tags') Tags
+											.col-sm-9
+												input.form-control#tags(type='text', name="tags", value="", placeholder='Enter the tags')
+								br
+								.card
+									.card-header.bg-success
+										| URL Slug
+									.card-body
+										.form-group
+											label.col-sm-4.control-label(for='slug') URL slug
+											input.form-control#slug(type='text', name='tags', value='')
+											| 		
+							.col-md-9
+								.row
+									.col-md-12
+										p= user.user_name
+										
+										.card
+											.card-header.bg-light
+												| Add new article
+											.card-body
+												.form-group
+													label.form-control-label(for='normal-input') Heading
+													input#normal-input.form-control(placeholder="write your article heading",value='')
+												textarea(name="content" id="editor")
+													p="Here goes the initial content of the editor."
+												br
+
+												br
+												br
+												button.btn.btn-primary.right
+													| Post this article
+								//- 				.row
+								//- 					.col-md-4
+								//- 						.form-group
+								//- 							label.form-control-label(for='normal-input') Normal Input
+								//- 							input#normal-input.form-control(value='Input value')
+								//- 					.col-md-4
+								//- 						.form-group
+								//- 							label.form-control-label(for='read-only') Read Only
+								//- 							input#read-only.form-control(value='Input value', readonly='')
+								//- 							input(type='checkbox', name='category[0]', value='backend')
+								//- 							|  Backend
+								//- 					.col-md-4
+								//- 						.form-group
+								//- 							label.form-control-label(for='disabled-input') Disabled Input
+								//- 							input#disabled-input.form-control(value='Input value', disabled='')
+								//- 				.row.mt-4
+								//- 					.col-md-4
+								//- 						.form-group
+								//- 							label.form-control-label(for='placeholder-input') Placeholder
+								//- 							input#placeholder-input.form-control(placeholder='Placeholder text')
+								//- 					.col-md-4
+								//- 						.form-group
+								//- 							label.require(for='required-input') Required
+								//- 							input#required-input.form-control(value='Input value')
+								//- 					.col-md-4
+								//- 						.form-group
+								//- 							label.form-control-label Static
+								//- 							p.form-control-plaintext email@example.com
+								//- 				.row.mt-4
+								//- 					.col-md-4
+								//- 						.form-group
+								//- 							label.form-control-label(for='help-text-input') Help text
+								//- 							input#help-text-input.form-control(placeholder='Enter email')
+								//- 							small.form-text We'll never share your email with anyone else.
+								//- 				.row.mt-4
+								//- 					.col-md-4
+								//- 						label Sizes
+								//- 						.form-group
+								//- 							input.form-control.form-control-sm(type='text', placeholder='Small')
+								//- 						.form-group
+								//- 							input.form-control(type='text', placeholder='Normal')
+								//- 						.form-group
+								//- 							input.form-control.form-control-lg(type='text', placeholder='Large')
+								//- 					.col-md-4
+								//- 						.form-group
+								//- 							label(for='single-select') Example select
+								//- 							select#single-select.form-control
+								//- 								option 1
+								//- 								option 2
+								//- 								option 3
+								//- 								option 4
+								//- 								option 5
+								//- 						.form-group
+								//- 							label(for='multi-select') Example multiple select
+								//- 							select#multi-select.form-control(multiple='')
+								//- 								option 1
+								//- 								option 2
+								//- 								option 3
+								//- 								option 4
+								//- 								option 5
+								//- 					.col-md-4
+								//- 						.form-group
+								//- 							label(for='textarea') Example textarea
+								//- 							textarea#textarea.form-control(rows='6')
+								//- .row.mt-4
+								//- 	.col-md-12
+								//- 		.card
+								//- 			.card-header.bg-light
+								//- 				| Input Groups
+								//- 			.card-body
+								//- 				.row
+								//- 					.col-md-4
+								//- 						label Text addon
+								//- 						.input-group.mb-3
+								//- 							.input-group-prepend
+								//- 								span.input-group-text @
+								//- 							input.form-control(type='text', placeholder='Username')
+								//- 						.input-group.mb-3
+								//- 							input.form-control(type='text', placeholder="Recipient's username")
+								//- 							.input-group-append
+								//- 								span.input-group-text @
+								//- 						.input-group.mb-3
+								//- 							.input-group-prepend
+								//- 								span.input-group-text $
+								//- 							input.form-control(type='text')
+								//- 							.input-group-append
+								//- 								span.input-group-text .00
+								//- 					.col-md-4
+								//- 						label Icon addon
+								//- 						.input-group.mb-3
+								//- 							.input-group-prepend
+								//- 								span.input-group-text
+								//- 									i.fa.fa-user
+								//- 							input.form-control(type='text', placeholder='Username')
+								//- 						.input-group.mb-3
+								//- 							input.form-control(type='text', placeholder='Email address', aria-describedby='basic-addon2')
+								//- 							.input-group-append
+								//- 								span.input-group-text
+								//- 									i.fa.fa-envelope
+								//- 						.input-group.mb-3
+								//- 							.input-group-prepend
+								//- 								span.input-group-text
+								//- 									i.fa.fa-credit-card
+								//- 							input.form-control(type='text', placeholder='Card Number')
+								//- 							.input-group-append
+								//- 								span.input-group-text
+								//- 									i.fa.fa-hashtag
+								//- 					.col-md-4
+								//- 						label Sizes
+								//- 						.input-group.input-group-lg.mb-3
+								//- 							.input-group-prepend
+								//- 								span.input-group-text @
+								//- 							input.form-control(type='text', placeholder='Username', aria-describedby='sizing-addon1')
+								//- 						.input-group.mb-3
+								//- 							.input-group-prepend
+								//- 								span.input-group-text @
+								//- 							input.form-control(type='text', placeholder='Username', aria-describedby='sizing-addon2')
+								//- 						.input-group.input-group-sm.mb-3
+								//- 							.input-group-prepend
+								//- 								span.input-group-text @
+								//- 							input.form-control(type='text', placeholder='Username', aria-describedby='sizing-addon3')
+								//- 				.row.mt-4
+								//- 					.col-md-4
+								//- 						label(for='input-group-1') Input Group with Button
+								//- 						.input-group
+								//- 							span.input-group-btn
+								//- 								button.btn.btn-primary(type='button')
+								//- 									i.fa.fa-search
+								//- 									|  Search
+								//- 							input#input-group-1.form-control(type='text', name='input1-group2', placeholder='Username')
+								//- 					.col-md-4
+								//- 						label(for='input-group-2') Input Group with Button
+								//- 						.input-group
+								//- 							input#input-group-2.form-control(type='text', name='input1-group2', placeholder='Username')
+								//- 							span.input-group-btn
+								//- 								button.btn.btn-primary(type='button')
+								//- 									i.fa.fa-search
+								//- 									|  Search
+								//- 					.col-md-4
+								//- 						label(for='input-group-3') Input Group with Dropdown
+								//- 						.input-group
+								//- 							.input-group-btn
+								//- 								button.btn.btn-primary.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='false')
+								//- 									| Action
+								//- 									span.caret
+								//- 								.dropdown-menu(x-placement='bottom-start')
+								//- 									a.dropdown-item(href='#') Action
+								//- 									a.dropdown-item(href='#') Another action
+								//- 									a.dropdown-item(href='#') Something else here
+								//- 									.dropdown-divider(role='separator')
+								//- 									a.dropdown-item(href='#') Separated link
+								//- 							input#input-group-3.form-control(type='text', name='input1-group3', placeholder='Username')
+								//- .row.mt-4
+								//- 	.col-md-12
+								//- 		.card
+								//- 			.card-header.bg-light
+								//- 				| Switches
+								//- 			.card-body
+								//- 				.row
+								//- 					.col-md-3
+								//- 						.toggle-switch
+								//- 							label.ts-label(for='ts1') Toggle Swith Default
+								//- 							input#ts1(type='checkbox', hidden='hidden')
+								//- 							label.ts-helper(for='ts1')
+								//- 					.col-md-3
+								//- 						.toggle-switch(data-ts-color='primary')
+								//- 							label.ts-label(for='ts2') Primary Toggle Switch
+								//- 							input#ts2(type='checkbox', hidden='hidden')
+								//- 							label.ts-helper(for='ts2')
+								//- 					.col-md-3
+								//- 						.toggle-switch(data-ts-color='secondary')
+								//- 							label.ts-label(for='ts3') Secondary Toggle Switch
+								//- 							input#ts3(type='checkbox', hidden='hidden')
+								//- 							label.ts-helper(for='ts3')
+								//- 					.col-md-3
+								//- 						.toggle-switch(data-ts-color='success')
+								//- 							label.ts-label(for='ts4') Success Toggle Switch
+								//- 							input#ts4(type='checkbox', hidden='hidden')
+								//- 							label.ts-helper(for='ts4')
+								//- 				hr
+								//- 				.row.mt-4
+								//- 					.col-md-3
+								//- 						.toggle-switch(data-ts-color='info')
+								//- 							label.ts-label(for='ts5') Info Swith Default
+								//- 							input#ts5(type='checkbox', hidden='hidden')
+								//- 							label.ts-helper(for='ts5')
+								//- 					.col-md-3
+								//- 						.toggle-switch(data-ts-color='warning')
+								//- 							label.ts-label(for='ts6') Warning Toggle Switch
+								//- 							input#ts6(type='checkbox', hidden='hidden')
+								//- 							label.ts-helper(for='ts6')
+								//- 					.col-md-3
+								//- 						.toggle-switch(data-ts-color='danger')
+								//- 							label.ts-label(for='ts7') Danger Toggle Switch
+								//- 							input#ts7(type='checkbox', hidden='hidden')
+								//- 							label.ts-helper(for='ts7')
+		
+
+
+
+
+		script(src='/vendor/ckeditor/ckeditor.js')
+		script(type="text/javascript").
+			ClassicEditor
+			    .create( document.querySelector( '#editor' ) )
+			    .then( editor => {
+			        console.log( editor );
+			    } )
+			    .catch( error => {
+			        console.error( error );
+			    } );
+		include ../foot.pug										
+		script(src='/js/jquery.tagsinput.min.js')
+

@@ -11,10 +11,10 @@ router
 		next();
 	})
 	.use(home.getTagAndCategory)
-	.use('/', require('./home'))
-	.use('/category', require('./categories'))
-	.use('/tags', require('./tags'))
-	.use('/article', require('./posts'))
+	.use('/', require('./main/home'))
+	.use('/category', require('./main/categories'))
+	.use('/tags', require('./main/tags'))
+	.use('/article', require('./main/posts'))
 	
 
 module.exports = router;

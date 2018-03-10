@@ -9,7 +9,7 @@ npm run seed
 npm start
 ```
 
-##TODO
+## TODO
 - [x] front-end template
 - [x] admin front-end template
 - [x] admin auth

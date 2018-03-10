@@ -17,11 +17,11 @@ npm start
 - [x] tag routing/controllers/views
 - [x] category routing/controller/views
 - [x] to bring order to routes
-- [] to bring order to templates
-- [] to bring order to duplicate controllers
-- [] to bring order of front-end part
-- [] page routing middleware
-- [] page controller/views
-- [] commentary controllers/views
-- [] mailing
-- [] custom settings
+- [ ] to bring order to templates
+- [ ] to bring order to duplicate controllers
+- [ ] to bring order of front-end part
+- [ ] page routing middleware
+- [ ] page controller/views
+- [ ] commentary controllers/views
+- [ ] mailing
+- [ ] custom settings

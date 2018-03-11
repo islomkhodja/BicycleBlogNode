@@ -25,3 +25,5 @@ npm start
 - [ ] commentary controllers/views
 - [ ] mailing
 - [ ] custom settings
+- [ ] use morgan logger in development
+- [ ] use winston logger in production

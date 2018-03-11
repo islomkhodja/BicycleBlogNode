@@ -7,3 +7,4 @@ exports.getPostBySlug = async (req, res, next) => {
 		.then( post => res.render('article', { post }) )
 		.catch(err => next(err))
 }
+

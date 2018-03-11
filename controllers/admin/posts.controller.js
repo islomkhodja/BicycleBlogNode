@@ -35,3 +35,21 @@ exports.getPostsWithOffset = async (req, res, next) => {
 		return next(err);
 	})
 }
+
+exports.addPost = (req, res, next) => {
+	/*
+	{
+"category": [
+"backend"
+],
+"tags": "test, best",
+"url_slug": "dunyo-xabar",
+"date_time": "2017-10-30T11:58",
+"content": "<p>Here goes the initial content of the editor.</p>",
+"comments": "open",
+"status": "publish"
+}
+
+	*/
+	res.json(req.body);
+}

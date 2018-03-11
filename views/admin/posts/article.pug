@@ -18,7 +18,7 @@ body.sidebar-fixed.header-fixed
 
 				.content
 					.container-fluid
-						.row.mt-4
+						form(action="/admin/article/new" method="POST").row.mt-4
 							.col-md-3
 								.card
 									.card-header.bg-success
@@ -44,7 +44,7 @@ body.sidebar-fixed.header-fixed
 												|  Backend
 
 										br
-										a(href="#")
+										a(href="/admin/article/categories")
 											| + Add new category
 								br
 								.card
@@ -62,12 +62,20 @@ body.sidebar-fixed.header-fixed
 									.card-body
 										.form-group
 											label.col-sm-4.control-label(for='slug') URL slug
-											input.form-control#slug(type='text', name='tags', value='')
+											input.form-control#slug(type='text', name='url_slug', value='')
 											| 		
+								br
+								.card
+									.card-header.bg-success
+										| Pick Datetime
+									.card-body
+										.form-group
+											label.col-sm-4.control-label(for='Date') URL slug
+											input.form-control#Date(type='datetime-local', name='date_time', value='')
+											| 	
 							.col-md-9
 								.row
 									.col-md-12
-										p= user.user_name
 										
 										.card
 											.card-header.bg-light
@@ -79,10 +87,21 @@ body.sidebar-fixed.header-fixed
 												textarea(name="content" id="editor")
 													p="Here goes the initial content of the editor."
 												br
+												.form-group
+													label(for="status") Comments Status
+													select(name="comments")#status.form-control
+														option(value="open") enable
+														option(value="close") disable	
+
 
 												br
+												.form-group
+													label(for="status") Select Article Status
+													select(name="status")#status.form-control
+														option(value="publish") Publish
+														option(value="draft") Draft	
 												br
-												button.btn.btn-primary.right
+												button(type="submit").btn.btn-primary.right
 													| Post this article
 								//- 				.row
 								//- 					.col-md-4

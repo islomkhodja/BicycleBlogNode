@@ -20,8 +20,8 @@ npm start
 - [ ] to bring order to templates
 - [ ] to bring order to duplicate controllers
 - [ ] to bring order of front-end part
-- [ ] page routing middleware
-- [ ] page controller/views
+- [x] page routing middleware
+- [x] page controller/views
 - [ ] commentary controllers/views
 - [ ] mailing
 - [ ] custom settings

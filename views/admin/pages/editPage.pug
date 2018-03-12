@@ -1,0 +1,91 @@
+include ../head.pug
+body.sidebar-fixed.header-fixed
+		.page-wrapper
+			
+			include ../page-header.pug
+
+
+			.main-container
+				
+
+
+
+				include ../sidebar.pug
+				
+
+
+				
+
+				.content
+					.container-fluid
+						form(action="/admin/article/edit" method="POST").row.mt-4
+							input(type="hidden", name="_method", value="PUT")
+							//- input(type="hidden", name="old_urlslug", value=)
+							.col-md-3
+								br
+								.card
+									.card-header.bg-success
+										| URL Slug
+									.card-body
+										.form-group
+											label.col-sm-4.control-label(for='slug') URL slug
+											input(type="hidden", name="oldslug", value=post.url_slug)
+											input.form-control#slug(type='text', name='url_slug', value=post.url_slug)
+											| 		
+								br
+								//- .card
+								//- 	.card-header.bg-success
+								//- 		| Pick Datetime
+								//- 	.card-body
+								//- 		.form-group
+								//- 			label.col-sm-4.control-label(for='Date') URL slug #{post.post_created_time}
+								//- 			input.form-control#Date(type='datetime-local', name='date_time', value=post.post_created_time)
+								//- 			| 	
+							.col-md-9
+								.row
+									.col-md-12
+										
+										.card
+											.card-header.bg-light
+												| edit article
+											.card-body
+												.form-group
+													label.form-control-label(for='normal-input') Heading
+													input#normal-input.form-control(placeholder="write your article heading", name="heading",value=post.post_title)
+												textarea(name="content" id="editor")= post.post_content
+												br
+												.form-group
+													label(for="status") Comments Status
+													select(name="comments")#status.form-control
+														option(value="open") enable
+														option(value="close") disable	
+
+
+												br
+												.form-group
+													label(for="status") Select Article Status
+													select(name="status")#status.form-control
+														option(value="publish") Publish
+														option(value="draft") Draft	
+												br
+												button(type="submit").btn.btn-primary.right
+													| Post this article
+								
+		
+
+
+
+
+		script(src='/vendor/ckeditor/ckeditor.js')
+		script(type="text/javascript").
+			ClassicEditor
+			    .create( document.querySelector( '#editor' ) )
+			    .then( editor => {
+			        console.log( editor );
+			    } )
+			    .catch( error => {
+			        console.error( error );
+			    } );
+		include ../foot.pug										
+		script(src='/js/jquery.tagsinput.min.js')
+

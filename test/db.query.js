@@ -1,6 +1,9 @@
 var models = require('../models');
 var chalk = require('chalk')
+const Op = models.Sequelize.Op;
 models.sequelize.sync().then(async function() {
+ 
+
   // console.log(models)
 /*  SELECT GROUP_CONCAT(terms.term_slug) as tags 
 	FROM `terms_relationships` 
@@ -208,42 +211,65 @@ models.sequelize.sync().then(async function() {
 	
 
 
-	let tags = ["html","css", "cpp", "qanday", "yaxshi"];
-	const parallel = tags.map(tag => {
-		return models.terms.findOrCreate({
-			where: {
-				term_slug: tag,
-				term_type: "post_tag"
-			},
-			defaults: {
-				term_name: tag
-			}
-		})	
-	})
+	// let tags = ["html","css", "cpp", "qanday", "yaxshi"];
+	// const parallel = tags.map(tag => {
+	// 	return models.terms.findOrCreate({
+	// 		where: {
+	// 			term_slug: tag,
+	// 			term_type: "post_tag"
+	// 		},
+	// 		defaults: {
+	// 			term_name: tag
+	// 		}
+	// 	})	
+	// })
 
-	let doneTask = await Promise.all(parallel);
-	doneTask.forEach(async task => {
-		console.log(task[0].get({
-	      plain: true
-	    }))
-    	console.log(task[1])	    
-	})	
+	// let doneTask = await Promise.all(parallel);
+	// doneTask.forEach(async task => {
+	// 	console.log(task[0].get({
+	//       plain: true
+	//     }))
+ //    	console.log(task[1])	    
+	// })	
 
-	let tr = doneTask.map(task => {
-		tag = task[0];
+	// let tr = doneTask.map(task => {
+	// 	tag = task[0];
 
-		return models.terms_relationship.create({
-			postPostId: 5, 
-			termTermId: tag.term_id, raw: true
-		})
-	})
+	// 	return models.terms_relationship.create({
+	// 		postPostId: 5, 
+	// 		termTermId: tag.term_id, raw: true
+	// 	})
+	// })
 
-	let result = await Promise.all(tr);
-	console.log(result)	
-	
+	// let result = await Promise.all(tr);
+	// console.log(result)	
+	let search_term = "happens"
+
+	models.posts.findAll({
+		// attributes: [post]
+		where: {
+		  [Op.or]: [
+		    {
+		      post_title: {
+		        [Op.like]: "%" + search_term + "%"
+		      }
+		    },
+		    {
+		      post_content: {
+		        [Op.like]: "%" + search_term + "%"
+		      }
+		    },
+		  ],
+		  post_type: ['post', 'page'],
+		  post_status: 'publish'
+		},
+		raw: true
+	}).then(console.log)
 
 }).catch(err => console.log("Connection Error:", err));
 
 async function processArray(array) {
 	const promises = array.map()
 }
+
+

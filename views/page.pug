@@ -1,0 +1,27 @@
+include includes/header.pug
+body
+	div#page
+		div.site-inner
+			header#top-header
+				include includes/welcome
+				include includes/menu
+			div#content
+				div#primary
+					main#main.site-main
+						if page
+							article.post
+								header.entry-header
+									h2.entry-title
+										a(href="/article/" + page.url_slug)=page.post_title
+								div.content
+									p
+										- content = page.post_content; 
+										.
+											!{content}
+				//Leave a comment on Git buyruqlari
+				include includes/sidebar
+
+			include includes/footer.pug
+
+
+

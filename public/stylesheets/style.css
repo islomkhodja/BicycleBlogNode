@@ -119,6 +119,7 @@ h2.entry-title {
   font-size: 2.5rem;
   font-family: Montserrat, "Helvetica Neue", sans-serif;
   letter-spacing: 1px;
+  line-height: 42px;
 }
 header.entry-header {
   margin-bottom: 42px;

@@ -1,0 +1,84 @@
+include ../head.pug
+body.sidebar-fixed.header-fixed
+		.page-wrapper
+			
+			include ../page-header.pug
+
+
+			.main-container
+				
+
+
+
+				include ../sidebar.pug
+				
+
+
+				
+
+				.content
+					.container-fluid
+						form(action="/admin/pages/new" method="POST").row.mt-4
+							.col-md-3
+								br
+								.card
+									.card-header.bg-success
+										| URL Slug
+									.card-body
+										.form-group
+											label.col-sm-4.control-label(for='slug') URL slug
+											input.form-control#slug(type='text', name='url_slug', value='')
+											| 		
+								br
+								.card
+									.card-header.bg-success
+										| Pick Datetime
+									.card-body
+										.form-group
+											label.col-sm-4.control-label(for='Date') URL slug
+											input.form-control#Date(type='datetime-local', name='date_time', value='')
+											| 	
+							.col-md-9
+								.row
+									.col-md-12
+										
+										.card
+											.card-header.bg-light
+												| Add new article
+											.card-body
+												.form-group
+													label.form-control-label(for='normal-input') Heading
+													input#normal-input.form-control(placeholder="write your article heading", name="heading",value='')
+												textarea(name="content" id="editor")
+													p="Here goes the initial content of the editor."
+												br
+												.form-group
+													label(for="status") Comments Status
+													select(name="comments")#status.form-control
+														option(value="open") enable
+														option(value="close") disable	
+
+
+												br
+												.form-group
+													label(for="status") Select Article Status
+													select(name="status")#status.form-control
+														option(value="draft") Draft	
+														option(value="publish") Publish
+												br
+												button(type="submit").btn.btn-primary.right
+													| Post this article
+								
+		script(src='/vendor/ckeditor/ckeditor.js')
+		script(type="text/javascript").
+			ClassicEditor
+			    .create( document.querySelector( '#editor' ) )
+			    .then( editor => {
+			        console.log( editor );
+			    } )
+			    .catch( error => {
+			        console.error( error );
+			    } );
+		include ../foot.pug										
+		script(src='/js/jquery.tagsinput.min.js')
+

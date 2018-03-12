@@ -80,13 +80,13 @@ app
 	.post('/testform', (req, res, next) => {
 		res.json(req.body);
 	});
+app
+	.use('/admin', require('./controllers/users.controller').isAuth, require('./routes/admin'));
 
 app
 	.use('/', require('./routes/main'));
 
 
-app
-	.use('/admin', require('./controllers/users.controller').isAuth, require('./routes/admin'));
 
 
 

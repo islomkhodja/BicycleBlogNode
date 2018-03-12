@@ -15,6 +15,6 @@ aside#secondary.sidebar
 	            
 	section.widget.widget-search
 		h2 Search
-		form(method="get" class="search-form" action="#")
-			input(type="search" class="search-field" placeholder="Search...")
-			button(type="submit" class="search-submit")
+		form(method="GET" class="search-form" action="/search")
+			input(type="search" name="s"  class="search-field" placeholder="Search...")
+			button(type="submit" class="search-submit").btn.btn-outline-primary Search

@@ -6,13 +6,11 @@ const postProcessing = require('../util/postProcessing');
 exports.getPostsWithOffset = async (req, res, next) => {
 	let offset = 0;
 	let limit  = 5;
-	// console.log(yellow("page"), req.query.page)
 	if(typeof req.query.page !== "undefined" && req.query.page !== null) {
 		offset = req.query.page * limit;
 	} else {
 		req.query.page = 1;
 	}
-	console.log(chalk.red("offset and limit"), offset, limit);
 
 	let id = await models.posts.getOffsetPostsId(offset, limit);
 	let _id = id.map(post => post.post_id);
@@ -24,7 +22,6 @@ exports.getPostsWithOffset = async (req, res, next) => {
 			let posts = data[0];
 			let terms = data[1];
 			let result = postProcessing(posts, terms);
-			console.log(result);
 			res.locals.posts = result;			
 		}
 		return res.render("admin/posts/all", {page: parseInt(req.query.page)});
@@ -44,9 +41,7 @@ exports.showAddPost = async (req, res, next) => {
 
 exports.addPost = async (req, res, next) => {
 		
-	console.log(req.user.user_id);
 	try {
-		console.log(chalk.yellow("1. Post insert qilamiz"))
 		let postData = await models.posts.create({
 			post_title: req.body.heading,
 			post_content: req.body.content,
@@ -57,12 +52,8 @@ exports.addPost = async (req, res, next) => {
 			comment_status: req.body.comments,
 			userUserId: req.user.user_id
 		})
-		console.log(chalk.yellow("Post insert qilindi"));
 		let post = postData.dataValues;
-		console.log(chalk.yellow("Post:"), post);
-		console.log(post);
 		let parallelCreateCategoryReleationship = req.body.category.map(cat => {
-			console.log(cat)
 			return models.terms_relationship.create({
 			 	postPostId: post.post_id,
 			 	termTermId: parseInt(cat),
@@ -101,7 +92,6 @@ exports.addPost = async (req, res, next) => {
 		res.redirect(req.originalUrl);
 	
 	} catch (err) {
-		console.log(err);
 		next(err);
 	
 	}
@@ -110,7 +100,6 @@ exports.addPost = async (req, res, next) => {
 
 exports.showEditPost = async (req, res, next) => {
 	let post_id = req.query.id;
-	console.log(post_id);
 	let data = await Promise.all([
 			models.posts.findOne({
 				where: {
@@ -126,7 +115,6 @@ exports.showEditPost = async (req, res, next) => {
 		let post = []; post.push(posts);
 		let terms = data[1];
 		let result = postProcessing(post, terms);
-		console.log(result);
 		res.locals.post = result[0];			
 		res.locals.post.categories = result[0].categories.map(category => category['term.term_name'])
 	}
@@ -153,7 +141,6 @@ exports.editPost = async(req, res, next) => {
 		res.redirect('/admin/article')
 
 	} catch(err) {
-		console.log(err);
 		next(err);		
 	}
 

@@ -1,9 +1,6 @@
 const models = require('../../models');
 
 exports.getTags = (req, res, next) => {
-	console.log(req.body);
-	console.log(req.params);
-	console.log(req.query);
 	if(typeof req.query.edit !== "string") {
 		models.terms.getAllTags()
 			.then(data => res.render('admin/posts/tags', {tags : data, edit: false}))
@@ -25,7 +22,6 @@ exports.addTag = (req, res, next) => {
 		term_name: req.body.term_name,
 		term_slug: req.body.term_slug
 	}).then(data => {
-		console.log(data);
 		res.redirect(req.originalUrl);
 	}).catch(err => next(err));
 }

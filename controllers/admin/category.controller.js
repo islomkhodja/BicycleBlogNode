@@ -1,9 +1,6 @@
 const models = require('../../models');
 
 exports.getCategories = (req, res, next) => {
-	console.log(req.body);
-	console.log(req.params);
-	console.log(req.query);
 	if(typeof req.query.edit !== "string") {
 		models.terms.getAllCategory()
 			.then(data => res.render('admin/posts/categories', {categories : data, edit: false}))
@@ -25,7 +22,6 @@ exports.addCategory = (req, res, next) => {
 		term_name: req.body.term_name,
 		term_slug: req.body.term_slug
 	}).then(data => {
-		console.log(data);
 		res.redirect(req.originalUrl);
 	}).catch(err => next(err));
 }

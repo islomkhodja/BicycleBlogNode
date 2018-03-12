@@ -7,7 +7,6 @@ const postProcessing = require('./util/postProcessing');
 exports.getPostsByCategoryWithOffset = async (req, res, next) => {
 	let offset = 0;
 	let limit  = 5;
-	// console.log(yellow("page"), req.query.page)
 	if(typeof req.query.page !== "undefined" && req.query.page !== null) {
 		offset = req.query.page * limit;
 	} else {
@@ -19,7 +18,6 @@ exports.getPostsByCategoryWithOffset = async (req, res, next) => {
 	} catch(err) {
 		return next(err);
 	}
-	console.log(id);
 	let _id = id.map(post => post.postPostId);
 
 	await Promise.all([

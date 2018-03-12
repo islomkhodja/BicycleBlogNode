@@ -8,7 +8,6 @@ exports.getTagAndCategory = (req, res, next) => {
 		]).then(completed => {
 			categories = completed[0];
 			tags = completed[1];
-			console.log(categories);
 			res.locals.tags = tags;
 			res.locals.categories = categories;
 			next();
@@ -20,13 +19,11 @@ exports.getTagAndCategory = (req, res, next) => {
 exports.getPostsWithOffset = async (req, res, next) => {
 	let offset = 0;
 	let limit  = 5;
-	// console.log(yellow("page"), req.query.page)
 	if(typeof req.query.page !== "undefined" && req.query.page !== null) {
 		offset = req.query.page * limit;
 	} else {
 		req.query.page = 1;
 	}
-	console.log(chalk.red("offset and limit"), offset, limit);
 	try {
 		let id = await models.posts.getOffsetPostsId(offset, limit);
 		let _id = id.map(post => post.post_id);
@@ -39,7 +36,6 @@ exports.getPostsWithOffset = async (req, res, next) => {
 			let posts = data[0];
 			let terms = data[1];
 			let result = postProcessing(posts, terms);
-			console.log(result);
 			res.locals.posts = result;			
 		}
 		res.render("index", {page: parseInt(req.query.page)});

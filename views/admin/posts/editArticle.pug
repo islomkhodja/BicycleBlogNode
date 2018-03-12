@@ -18,7 +18,9 @@ body.sidebar-fixed.header-fixed
 
 				.content
 					.container-fluid
-						form(action="/admin/article/new" method="POST").row.mt-4
+						form(action="/admin/article/edit" method="POST").row.mt-4
+							input(type="hidden", name="_method", value="PUT")
+							//- input(type="hidden", name="old_urlslug", value=)
 							.col-md-3
 								.card
 									.card-header.bg-success
@@ -33,9 +35,15 @@ body.sidebar-fixed.header-fixed
 											#home.tab-pane.active(role='tabpanel')
 												if categories
 													each category, index in categories
-														input(type='checkbox', name='category['+ index + ']', value=category.term_id)
-														|  #{category.term_name}
-														br
+														each cat in post.categories
+															if(category.term_name === cat)
+																input(type='checkbox', name='category['+ index + ']', value=category.term_id, checked)
+																|  #{category.term_name}
+																br
+															else
+																input(type='checkbox', name='category['+ index + ']', value=category.term_id)
+																|  #{category.term_name}
+																br
 												
 												//- input(type="checkbox") 
 												
@@ -54,7 +62,11 @@ body.sidebar-fixed.header-fixed
 										.form-group
 											label.col-sm-3.control-label(for='tags') Tags
 											.col-sm-9
-												input.form-control#tags(type='text', name="tags", value="", placeholder='Enter the tags')
+												- var tags = post.tags;
+												- var tag = tags.map(tag => tag['term.term_slug'])
+												- tag = tag.join(',');
+												input(type="hidden", name="oldtags", value=tag)
+												input.form-control#tags(type='text', name="tags", value=tag, placeholder='Enter the tags')
 								br
 								.card
 									.card-header.bg-success
@@ -62,30 +74,30 @@ body.sidebar-fixed.header-fixed
 									.card-body
 										.form-group
 											label.col-sm-4.control-label(for='slug') URL slug
-											input.form-control#slug(type='text', name='url_slug', value='')
+											input(type="hidden", name="oldslug", value=post.url_slug)
+											input.form-control#slug(type='text', name='url_slug', value=post.url_slug)
 											| 		
 								br
-								.card
-									.card-header.bg-success
-										| Pick Datetime
-									.card-body
-										.form-group
-											label.col-sm-4.control-label(for='Date') URL slug
-											input.form-control#Date(type='datetime-local', name='date_time', value='')
-											| 	
+								//- .card
+								//- 	.card-header.bg-success
+								//- 		| Pick Datetime
+								//- 	.card-body
+								//- 		.form-group
+								//- 			label.col-sm-4.control-label(for='Date') URL slug #{post.post_created_time}
+								//- 			input.form-control#Date(type='datetime-local', name='date_time', value=post.post_created_time)
+								//- 			| 	
 							.col-md-9
 								.row
 									.col-md-12
 										
 										.card
 											.card-header.bg-light
-												| Add new article
+												| edit article
 											.card-body
 												.form-group
 													label.form-control-label(for='normal-input') Heading
-													input#normal-input.form-control(placeholder="write your article heading", name="heading",value='')
-												textarea(name="content" id="editor")
-													p="Here goes the initial content of the editor."
+													input#normal-input.form-control(placeholder="write your article heading", name="heading",value=post.post_title)
+												textarea(name="content" id="editor")= post.post_content
 												br
 												.form-group
 													label(for="status") Comments Status
@@ -98,12 +110,17 @@ body.sidebar-fixed.header-fixed
 												.form-group
 													label(for="status") Select Article Status
 													select(name="status")#status.form-control
-														option(value="draft") Draft	
 														option(value="publish") Publish
+														option(value="draft") Draft	
 												br
 												button(type="submit").btn.btn-primary.right
 													| Post this article
 								
+		
+
+
+
+
 		script(src='/vendor/ckeditor/ckeditor.js')
 		script(type="text/javascript").
 			ClassicEditor

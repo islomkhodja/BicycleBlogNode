@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	Terms.getAllCategory = function() {
 		return Terms.findAll({
-			attributes: ['term_name', 'term_slug', 'term_count'],
+			attributes: ['term_id','term_name', 'term_slug', 'term_count'],
 			where: {
 				term_type:'category'
 			},

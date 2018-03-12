@@ -70,7 +70,10 @@ body.sidebar-fixed.header-fixed
 															td 
 																a(href='/admin/article/edit?id='+post.post_id).btn.btn-warning Edit
 															td
-																button.btn.btn-danger Delete
+																form(action="/admin/article/delete", method="POST")
+																	input(type="hidden", name="_method", value="DELETE")
+																	input(type="hidden", name="post_id", value=post.post_id)
+																	button(type="submit").btn.btn-danger Delete
 												else
 													span no data...
 

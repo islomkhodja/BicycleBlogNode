@@ -6,7 +6,6 @@ aside#secondary.sidebar
 				each category in categories
 					li
 						a(href="/category/" + category.term_slug)=category.term_name
-							| (#{category.term_count})
 		section.widget.widget-tags
 			h2 Tags
 			ul.wp-tag-cloud

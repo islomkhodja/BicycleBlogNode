@@ -1,6 +1,6 @@
 var models = require('../models');
 var chalk = require('chalk')
-models.sequelize.sync().then(function() {
+models.sequelize.sync().then(async function() {
   // console.log(models)
 /*  SELECT GROUP_CONCAT(terms.term_slug) as tags 
 	FROM `terms_relationships` 
@@ -144,5 +144,106 @@ models.sequelize.sync().then(function() {
 
 	//models.posts.getPostBySlug('lorem-woarld').then(data => console.log(data)).catch(err => console.log(err))
 
+// {
+// "category": [
+// "backend"
+// ],
+//	"heading" : "test",
+// "tags": "test, best",
+// "url_slug": "dunyo-xabar",
+// "date_time": "2017-10-30T11:58",
+// "content": "<p>Here goes the initial content of the editor.</p>",
+// "comments": "open",
+// "status": "publish"
+// }
+
+
+	// models.posts.create({
+	// 	post_title: "test",
+	// 	post_content: "<p>Here goes the initial content of the editor.</p>",
+	// 	url_slug:"dunyo-xabar",
+	// 	post_type: "post",
+	// 	post_status: "publish",
+	// 	post_created_time: "2017-10-30T11:58",
+	// 	post_modified_time: "2017-10-30T11:58",
+	// 	comment_status: "close",
+	// 	userUserId: 1
+	// })
+
+	// models.terms.findOne({
+	// 	where: {
+	// 		term_slug: "backend"
+	// 	},
+	// 	// include: [models.terms],
+	// 	raw: true,
+	// })
+	// .then(data => {
+	// 	console.log(data);
+
+	// 	return models.terms_relationship.create({
+	// 		postPostId: 5,
+	// 		termTermId: data.term_id,
+	// 		raw:true
+	// 	})
+	// })
+	// .then(data => {
+	// 	console.log(data);
+
+
+	// })
+	// .catch(err => {
+	// 	console.log(err);
+	// })
+	
+	// models.terms.findOrCreate({
+	// 		where: {
+	// 			term_slug: 'cpp',
+	// 			term_type: "post_tag"
+	// 		},
+	// 		defaults: {
+	// 			term_name: "cpp"
+	// 		}
+	// 	}).then(data => console.log(data))
+	// 	.catch(err => console.log(err))
+	
+
+
+	let tags = ["html","css", "cpp", "qanday", "yaxshi"];
+	const parallel = tags.map(tag => {
+		return models.terms.findOrCreate({
+			where: {
+				term_slug: tag,
+				term_type: "post_tag"
+			},
+			defaults: {
+				term_name: tag
+			}
+		})	
+	})
+
+	let doneTask = await Promise.all(parallel);
+	doneTask.forEach(async task => {
+		console.log(task[0].get({
+	      plain: true
+	    }))
+    	console.log(task[1])	    
+	})	
+
+	let tr = doneTask.map(task => {
+		tag = task[0];
+
+		return models.terms_relationship.create({
+			postPostId: 5, 
+			termTermId: tag.term_id, raw: true
+		})
+	})
+
+	let result = await Promise.all(tr);
+	console.log(result)	
+	
 
 }).catch(err => console.log("Connection Error:", err));
+
+async function processArray(array) {
+	const promises = array.map()
+}

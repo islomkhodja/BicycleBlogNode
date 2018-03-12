@@ -8,12 +8,16 @@ const tag = require('../../controllers/admin/tags.controller')
 
 router.route('/')
 	.get(posts.getPostsWithOffset)
-	.post()
 
-router.route('/new').get((req, res, next) => {
-	res.render('admin/posts/article')
-}).post(posts.addPost)
+router.route('/new')
+	.get(posts.showAddPost)
+	.post(posts.addPost);
 
+router.route('/edit')
+	.get(posts.showEditPost)
+	.put(posts.editPost);
+
+router.delete('/delete', posts.deletePost);
 
 router.route('/categories')
 	.get(category.getCategories)

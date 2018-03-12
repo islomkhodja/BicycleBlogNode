@@ -27,13 +27,14 @@ exports.getPostsWithOffset = async (req, res, next) => {
 		req.query.page = 1;
 	}
 	console.log(chalk.red("offset and limit"), offset, limit);
+	try {
+		let id = await models.posts.getOffsetPostsId(offset, limit);
+		let _id = id.map(post => post.post_id);
+		let data = await Promise.all([
+			models.posts.getPostsById(_id),
+			models.terms_relationship.getAllTermsByPostId(_id)
+		])
 
-	let id = await models.posts.getOffsetPostsId(offset, limit);
-	let _id = id.map(post => post.post_id);
-	await Promise.all([
-		models.posts.getPostsById(_id),
-		models.terms_relationship.getAllTermsByPostId(_id)
-	]).then((data) => {
 		if(data) {
 			let posts = data[0];
 			let terms = data[1];
@@ -41,12 +42,11 @@ exports.getPostsWithOffset = async (req, res, next) => {
 			console.log(result);
 			res.locals.posts = result;			
 		}
-		return res.render("index", {page: parseInt(req.query.page)});
-	}).catch(err => {
-		return next(err);
-	})
+		res.render("index", {page: parseInt(req.query.page)});
 
-	
+	} catch(err) { 
+		return next(err);
+	}
 }
 
 

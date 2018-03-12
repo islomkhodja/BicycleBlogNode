@@ -2,9 +2,6 @@ const models = require('../../models/');
 const chalk = require('chalk')
 const postProcessing = require('../util/postProcessing');
 
-exports.getPostBySlug = async (req, res, next) => {
-	
-}
 
 exports.getPostsWithOffset = async (req, res, next) => {
 	let offset = 0;
@@ -47,24 +44,6 @@ exports.showAddPost = async (req, res, next) => {
 
 exports.addPost = async (req, res, next) => {
 		
-		/*
-		{
-			"category": [
-			"backend"
-			],
-			"tags": "test, best",
-			"url_slug": "dunyo-xabar",
-			"date_time": "2017-10-30T11:58",
-			"content": "<p>Here goes the initial content of the editor.</p>",
-			"comments": "open",
-				"status": "publish"
-		}
-
-		*/
-	// 1. insert post 
-	// 2.insert category
-	// 3. insert tags (findOrCreate)
-	// return res.json(req.body);
 	console.log(req.user.user_id);
 	try {
 		console.log(chalk.yellow("1. Post insert qilamiz"))
@@ -178,18 +157,21 @@ exports.editPost = async(req, res, next) => {
 		next(err);		
 	}
 
-// 	{
-// "category": [
-// "2"
-// ],
-// "oldtags": "koinot, ilonmask",
-// "tags": "koinot, ilonmask",
-// "url_slug": "spacex-ilon-mask",
-// "heading": "Spacex tayorlab qo'yipti!!",
-// "content": "<p>SpaceX kompaniyasining asoschisi Ilon Mask Marsga parvoz qilishga mo‘ljallangan kemasi 2019-yilning birinchi yarmida ilk bor havoga ko‘tarilishini ma’lum qildi. Bu haqda u Ostindagi (Texas shtati) texnologiya va madaniyat festivalida xabar berdi, <a href=\"https://www.cnbc.com/2018/03/11/elon-musk-says-mars-spaceship-will-be-ready-for-short-trips-by-first-half-of-2019.html\">deb yozadi</a> CNBC News.</p><figure class=\"image\"><img src=\"https://s.daryo.uz/wp-content/uploads/2018/03/marsga-parvoz-680x510.jpg\"></figure><p>Foto: SpaceX</p><p>“Biz sayyoralararo kemani barpo etmoqdamiz, u kelgusi yilning birinchi yarmidan qisqa parvozlarni amalga oshirishi mumkin”, — dedi u.</p><p>SpaceX BFR (Big Falcon Rocket) raketa tizimi to‘liq ko‘p martalik bo‘lishi kutilmoqda. Parvoz Falcon 1 ning birinchi parvozlaridan arzonroq bo‘ladi. BFR ko‘p martalik o‘ta og‘ir raketa va yuzga yaqin kishini sig‘dira oluvchi boshqariluvchi kemani o‘z ichiga oladi.</p>",
-// "comments": "open",
-// "status": "publish"
-// }
+	// TODO:
+	// update tags
+	// update categories
+	// 	{
+	// "category": [
+	// "2"
+	// ],
+	// "oldtags": "koinot, ilonmask",
+	// "tags": "koinot, ilonmask",
+	// "url_slug": "spacex-ilon-mask",
+	// "heading": "Spacex tayorlab qo'yipti!!",
+	// "content": "<p>SpaceX kompaniyasining asoschisi Ilon Mask Marsga parvoz qilishga mo‘ljallangan kemasi 2019-yilning birinchi yarmida ilk bor havoga ko‘tarilishini ma’lum qildi. Bu haqda u Ostindagi (Texas shtati) texnologiya va madaniyat festivalida xabar berdi, <a href=\"https://www.cnbc.com/2018/03/11/elon-musk-says-mars-spaceship-will-be-ready-for-short-trips-by-first-half-of-2019.html\">deb yozadi</a> CNBC News.</p><figure class=\"image\"><img src=\"https://s.daryo.uz/wp-content/uploads/2018/03/marsga-parvoz-680x510.jpg\"></figure><p>Foto: SpaceX</p><p>“Biz sayyoralararo kemani barpo etmoqdamiz, u kelgusi yilning birinchi yarmidan qisqa parvozlarni amalga oshirishi mumkin”, — dedi u.</p><p>SpaceX BFR (Big Falcon Rocket) raketa tizimi to‘liq ko‘p martalik bo‘lishi kutilmoqda. Parvoz Falcon 1 ning birinchi parvozlaridan arzonroq bo‘ladi. BFR ko‘p martalik o‘ta og‘ir raketa va yuzga yaqin kishini sig‘dira oluvchi boshqariluvchi kemani o‘z ichiga oladi.</p>",
+	// "comments": "open",
+	// "status": "publish"
+	// }
 }
 
 

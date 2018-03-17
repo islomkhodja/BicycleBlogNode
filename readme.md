@@ -1,12 +1,12 @@
 # Bicycle Blog Engine
 
-This should be wordpress like project.
+**This is my bicycle and it should be wordpress like project.**
 
 Stack: Node.js, Express, Pug (server-side rendering), Sequelize (MySQL dialect).  
 
-This is an experimental project, I don't advise using it on production. It hasn't finished yet. 
+This is an **experimental project**, I don't advise using it on production. It **hasn't finished yet**. 
 
-- The main template is clumsily copied from Twenty-Sixteen theme of Wordpress (ughh.. my html&css skills)
+- The main template is clumsily copied from Twenty-Sixteen theme of Wordpress (**ughh.. my html&css skills**)
 - The admin template is [Carbon](http://carbon.smartisan.io/)
 - WYSIWYG redactor - [CKeditor](https://ckeditor.com/) 
 

@@ -47,6 +47,6 @@ npm run seed
 - [ ] to bring order to duplicate controllers
 - [ ] fix front-end part
 - [ ] mailing
-- [ ] use morgan logger in development
+- [x] use morgan logger in development
 - [ ] use winston logger in production
 - [ ] add tests!!1

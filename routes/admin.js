@@ -9,6 +9,7 @@ const logout = require('./admin/logout');
 const register = require('./admin/register')
 const article = require('./admin/article');
 const pages = require('./admin/pages');
+const settings = require('./admin/settings')
 // users.isAuth, users.isAdmin, 
 router.get('/', (req,res)=> {
   // console.log('dsadagfasdagasdasf',req.user);
@@ -24,7 +25,7 @@ router.use('/register', register);
 // router.post('/register',  userController.register)
 router.use('/article', article);
 router.use('/pages', pages);
-	
+router.use('/settings', settings);
 
 
 

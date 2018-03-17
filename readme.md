@@ -16,14 +16,15 @@ npm start
 - [x] article routing/controllers/views
 - [x] tag routing/controllers/views
 - [x] category routing/controller/views
-- [x] to bring order to routes
-- [ ] to bring order to templates
-- [ ] to bring order to duplicate controllers
-- [ ] to bring order of front-end part
 - [x] page routing middleware
 - [x] page controller/views
-- [ ] commentary controllers/views
-- [ ] mailing
+- [x] to bring order to routes
 - [ ] custom settings
+- [ ] commentary controllers/views
+- [ ] Add validators where the verbs POST, PUT, DELETE are used
+- [ ] to bring order to templates
+- [ ] to bring order to duplicate controllers
+- [ ] fix front-end part
+- [ ] mailing
 - [ ] use morgan logger in development
 - [ ] use winston logger in production

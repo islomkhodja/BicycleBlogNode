@@ -21,8 +21,7 @@ router.get('/', (req,res)=> {
 router.use('/login', login);
 //should be POST
 router.use('/logout', logout);
-router.use('/register', register); 
-// router.post('/register',  userController.register)
+// router.use('/register', register); 
 router.use('/article', article);
 router.use('/pages', pages);
 router.use('/settings', settings);

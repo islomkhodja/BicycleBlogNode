@@ -7,6 +7,8 @@ const passport = require('./config/passport');
 const models = require('./models');
 const compression = require('compression')
 const methodOverride = require('method-override');
+const config = require('./config/config.json');
+
 
 const app = express();
 /*
@@ -16,11 +18,20 @@ app.set('port', 3030);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+Object.keys(config.settings).forEach(keys => {
+	let element = config.settings[keys];
+	app.set(keys, element);
+})
+
+console.log(app);
+
 app.use(compression());
 
 /*
 	Middlewares
  */
+
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -56,24 +67,7 @@ app.use(passport.session());
 
 //- -- router middllewares
 app.get('/testform', (req, res, next) => {
-	res.send(`
-<!DOCTYPE html>
-<html>
-<body>
-
-<form action="/testform" method="post">
-<input type="checkbox" name="category[0]" value="Bike">I have a bike
-<br>
-<input type="checkbox" name="category[1]" value="Car">I have a car 
-<br>
-<input type="checkbox" name="category[2]" value="Boat">I have a boat
-<br>
-<input type="submit">
-</form> 
-
-</body>
-</html>
-		`)
+	res.json(app.locals)
 })
 
 app

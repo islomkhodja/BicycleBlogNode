@@ -1,13 +1,14 @@
 div.header-hi
     h1
-        a(href="/") Ertaga
-    h6= useuse
-     //- Har doim ertaga amalga oshiraman.
+        a(href="/")= sitename
+    h5
+      | #{siteheader}
+    hr
     if user
         h5= user.user_name
-        h4= user.user_email
+        h5= user.user_email
         if user.user_type === "admin"
-            h3.user-type= "You're"
-                a(href="/admin")=" admin"
+            h5.user-type= "You're"
+                a(href="/admin", style="font-size: 14px; color: #03a9f4")=" admin"
         else 
-            h3= "You're member"
+            h5= "You're member"

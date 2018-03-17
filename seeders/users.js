@@ -1,7 +1,7 @@
 'use strict';
 var chance = require('chance');
 var md5 = require('md5');
-
+var config = require('../config/config.json');
 
 chance = new chance();
 
@@ -18,15 +18,10 @@ module.exports = {
       }], {});
     */
    return queryInterface.bulkInsert('users', [{
-            user_name: "Islomkhodja",
-            user_email: "hamidullakhodjaev@gmail.com",
-            user_pass: md5("test"),
+            user_name: config.app.admin.username,
+            user_email: config.app.admin.email,
+            user_pass: md5(config.app.admin.password),
             user_register_time: new Date()
-        }, {
-          user_name: "Hamidullakhodja",
-          user_email: "toshkentmetro@gmail.com",
-          user_pass: md5("test"),
-          user_register_time: new Date()
         }], {});
   },
 

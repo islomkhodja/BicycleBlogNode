@@ -19,5 +19,18 @@
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
+  },
+  "app" : {
+    "host" : "0.0.0.0",
+    "port" : "3030",
+    "admin" : {
+      "username": "islomkhodja",
+      "email" : "test@isatest.com",
+      "password": "test"
+    }
+  },
+  "settings" : {
+    "sitename" : "SalomDunyo",
+    "siteheader" : "Hammaga yaxshilik tilayman!"
   }
 }

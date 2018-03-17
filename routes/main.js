@@ -7,6 +7,9 @@ const chalk = require('chalk')
 
 router
 	.use((req, res, next) => {
+		// console.log(chalk.red("ETAG"), req.app.get('etag'))
+		res.locals.sitename = req.app.get('sitename');
+		res.locals.siteheader = req.app.get('siteheader');
 		res.locals.user = req.user;
 		next();
 	})

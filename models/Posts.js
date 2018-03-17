@@ -31,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
 		post_created_time: 	{type: DataTypes.DATE, defaultValue: DataTypes.NOW, allowNull: false},
 		post_modified_time: {type: DataTypes.DATE, defaultValue: DataTypes.NOW, allowNull: false},
 		post_parent: 		{type: DataTypes.INTEGER},
+		order: { type: DataTypes.INTEGER},
 		comment_status: 	{type: DataTypes.ENUM('open', 'close'), defaultValue: 'open'},
 		comment_count: 		{type: DataTypes.INTEGER, defaultValue : 0}
 	},{

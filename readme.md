@@ -6,6 +6,10 @@ Stack: Node.js, Express, Pug (server-side rendering), Sequelize (MySQL dialect).
 
 This is an experimental project, I don't advise using it on production. It hasn't finished yet. 
 
+- The main template is clumsily copied from Twenty-Sixteen theme of Wordpress (ughh.. my html&css skills)
+- The admin template is [Carbon](http://carbon.smartisan.io/)
+- WYSIWYG redactor - [CKeditor](https://ckeditor.com/) 
+
 ## install
 first of all you need to configure your `config.json` then:
 ```bash
@@ -18,8 +22,7 @@ npm run seed
 ```
 
 1. then go to your http://yourhost:yourport/admin/login
-2. create your first category
-3. write your first post, choose your category that you created, write your tags.
+2. create your first categor3. write your first post, choose your category that you created, write your tags.
 4. and you can create your pages
 5. add to menu your pages (not realized yet)
 6. .... (not yet implemented functionals)

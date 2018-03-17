@@ -22,10 +22,10 @@ npm run seed
 ```
 
 1. then go to your http://yourhost:yourport/admin/login
-2. create your first categor3. write your first post, choose your category that you created, write your tags.
+2. create your first category. write your first post, choose your category that you created, write your tags.
 4. and you can create your pages
-5. add to menu your pages (not realized yet)
-6. .... (not yet implemented functionals)
+5. add to menu your pages (_not realized yet_)
+6. .... (_not yet implemented functionals_)
 
 ## TODO
 - [x] front-end template
@@ -39,7 +39,7 @@ npm run seed
 - [x] to bring order to routes
 - [ ] custom settings
 - [ ] settings -> menu
-- [ ] settings -> custom permalinks [for this functionality need to change logic of project]
+- [ ] settings -> custom permalinks [_for this functionality need to change logic of project_]
 - [ ] register invite functionality
 - [ ] commentary controllers/views
 - [ ] Add validators where the verbs POST, PUT, DELETE are used

@@ -37,7 +37,7 @@ npm run seed
 - [x] page routing middleware
 - [x] page controller/views
 - [x] to bring order to routes
-- [ ] custom settings
+- [x] custom settings
 - [ ] settings -> menu
 - [ ] settings -> custom permalinks [_for this functionality need to change logic of project_]
 - [ ] register invite functionality

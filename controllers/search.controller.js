@@ -46,13 +46,13 @@ exports.search = async (req, res, next) => {
 			models.terms_relationship.getAllTermsByPostId(_id)
 		])
 
-		if(data) {
+		if (data) {
 			let posts = data[0];
 			let terms = data[1];
 			let result = postProcessing(posts, terms);
 			res.locals.posts = result;			
 		}
-		res.render("search", {search: search_term});
+		return res.render("search", {search: search_term});
 	} catch (err) {
 		next(err);
 	}

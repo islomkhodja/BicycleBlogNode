@@ -1,19 +1,21 @@
 const models = require("../models");
 const chalk = require('chalk');
 const postProcessing = require('./util/postProcessing');
-exports.getTagAndCategory = (req, res, next) => {
-	Promise.all([
+exports.getTagAndCategory = async (req, res, next) => {
+	try {
+		const completed = await Promise.all([
 			models.terms.getAllCategory(),
 			models.terms.getAllTags(),
-		]).then(completed => {
-			categories = completed[0];
-			tags = completed[1];
-			res.locals.tags = tags;
-			res.locals.categories = categories;
-			next();
-		}).catch(err => {
-			return next(err);
-		})
+		]);
+	
+		categories = completed[0];
+		tags = completed[1];
+		res.locals.tags = tags;
+		res.locals.categories = categories;
+		next();
+	} catch(err) {
+		return next(err);
+	}
 }
 
 exports.getPostsWithOffset = async (req, res, next) => {

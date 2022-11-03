@@ -15,16 +15,16 @@ exports.getTagsForEditArticle = (req, res, next) => {
 	// secondd variant
 	/*
 	SELECT GROUP_CONCAT(terms.term_slug) as tags 
-FROM `terms_relationships`, `terms` 
-WHERE terms.term_id = terms_relationships.termTermId 
-and terms.term_type = 'post_tag' and terms_relationships.postPostId = 1
-	 */
+	FROM `terms_relationships`, `terms` 
+	WHERE terms.term_id = terms_relationships.termTermId 
+	and terms.term_type = 'post_tag' and terms_relationships.postPostId = 1
+	*/
 }
 
 exports.getPostsByTagWithOffset = async (req, res, next) => {
 	let offset = 0;
 	let limit  = 5;
-	// console.log(yellow("page"), req.query.page)
+
 	if(typeof req.query.page !== "undefined" && req.query.page !== null) {
 		offset = req.query.page * limit;
 	} else {
@@ -33,16 +33,14 @@ exports.getPostsByTagWithOffset = async (req, res, next) => {
 	let id = ""
 	try {
 		id = await models.terms_relationship.getAllPostsIdByTags(req.params.tag, offset, limit);
-	} catch(err) {
-		return next(err);
-	}
-	console.log(id);
-	let _id = id.map(post => post.postPostId);
+	
+		let _id = id.map(post => post.postPostId);
 
-	await Promise.all([
-		models.posts.getPostsById(_id),
-		models.terms_relationship.getAllTermsByPostId(_id)
-	]).then((data) => {
+		const data = await Promise.all([
+			models.posts.getPostsById(_id),
+			models.terms_relationship.getAllTermsByPostId(_id)
+		]);
+
 		if(data) {
 			let posts = data[0];
 			let terms = data[1];
@@ -54,7 +52,7 @@ exports.getPostsByTagWithOffset = async (req, res, next) => {
 			tag: req.params.tag,
 			page: parseInt(req.query.page)
 		});
-	}).catch(err => {
+	} catch(err) {
 		return next(err);
-	})
+	}
 }

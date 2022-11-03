@@ -3,7 +3,7 @@ const passport = require("passport");
 const chalk = require('chalk')
 exports.isAuth = (req, res, next) => {
 	// debug('isAuth`ga keldi');
-	if(req.path === "/login" || req.path === "/register") {
+	if (req.path === "/login" || req.path === "/register") {
 		return next();
 	}
 	req.isAuthenticated()
@@ -12,7 +12,7 @@ exports.isAuth = (req, res, next) => {
 }
 
 exports.isAdmin = (req, res, next) => {
-	if(req.user.user_type === "admin") {
+	if (req.user.user_type === "admin") {
 		return next();
 	}
 
@@ -30,35 +30,39 @@ exports.isNotLogged = (req, res, next) => {
 
 
 exports.register = async (req, res, next) => {
-
-	let existUser = await Users.findOne({
-		where: {
-			user_email : req.body.email
+	try {
+		let existUser = await Users.findOne({
+			where: {
+				user_email : req.body.email
+			}
+		});
+		
+		if (existUser !== null) {
+			return res.send("Such a user we have!");
 		}
-	});
-	if(existUser !== null) {
-		return res.send("Such a user we have!");
+	
+		let registerUser = {
+			user_name : req.body.username,
+			user_email : req.body.email,
+			user_pass : req.body.password
+		}
+	
+		let newUser = await Users.create(registerUser);
+	
+	
+		return res.redirect('/admin');
+	} catch (error) {
+		return next(error);
 	}
-
-	let registerUser = {
-		user_name : req.body.username,
-		user_email : req.body.email,
-		user_pass : req.body.password
-	}
-
-	let newUser = await Users.create(registerUser);
-
-
-	res.redirect('/admin');
 }
 
-exports.login = async (req, res, next) => {
+exports.login = (req, res, next) => {
 	passport.authenticate('local', (err, user, info) => {
-		if(err || !user) {
+		if (err || !user) {
 			res.send('INFO:' + JSON.stringify(info));
 		} else {
 			req.login(user, (err) => {
-				if(err) {
+				if (err) {
 					res.send(err);
 				} else {
 					res.redirect("/admin")

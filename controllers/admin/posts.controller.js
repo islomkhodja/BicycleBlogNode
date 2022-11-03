@@ -3,7 +3,7 @@ const chalk = require('chalk')
 const postProcessing = require('../util/postProcessing');
 
 
-exports.getPostsWithOffset = async (req, res, next) => {
+exports.getPostsWithOffset = (req, res, next) => {
 	let offset = 0;
 	let limit  = 5;
 	if(typeof req.query.page !== "undefined" && req.query.page !== null) {
@@ -14,7 +14,7 @@ exports.getPostsWithOffset = async (req, res, next) => {
 
 	let id = await models.posts.getOffsetPostsId(offset, limit);
 	let _id = id.map(post => post.post_id);
-	await Promise.all([
+	return Promise.all([
 		models.posts.getPostsById(_id),
 		models.terms_relationship.getAllTermsByPostId(_id)
 	]).then((data) => {

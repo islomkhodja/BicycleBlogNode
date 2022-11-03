@@ -4,38 +4,40 @@ const postProcessing = require('../util/postProcessing');
 const sequelize = models.sequelize;
 
 exports.getPagesWithOffset = async (req, res, next) => {
-	let offset = 0;
-	let limit  = 5;
-	if(typeof req.query.page !== "undefined" && req.query.page !== null) {
-		offset = req.query.page * limit;
-	} else {
-		req.query.page = 1;
+	try {
+		let offset = 0;
+		let limit  = 5;
+		if(typeof req.query.page !== "undefined" && req.query.page !== null) {
+			offset = req.query.page * limit;
+		} else {
+			req.query.page = 1;
+		}
+		let pages = await models.posts.findAll({
+			attributes: ['post_id', 'post_title', [sequelize.fn('SUBSTRING', sequelize.col('post_content'), 1, 150),'post_content'], 'url_slug', 'comment_status', 'comment_count', 'userUserId', 'post_created_time', 'user.user_name'],
+			order: [['post_created_time', 'DESC']],
+			where: {	
+				"post_type": "page",
+			},
+			include : [
+					{
+						attributes: ['user_name', 'user_type'],
+						model: models.users,
+					}
+				],
+
+			raw:true
+		})
+
+		res.locals.pages = pages;
+
+		return res.render("admin/pages/all", {page: parseInt(req.query.page)});
+	} catch (error) {
+		return next(error)
 	}
-	let pages = await models.posts.findAll({
-		attributes: ['post_id', 'post_title', [sequelize.fn('SUBSTRING', sequelize.col('post_content'), 1, 150),'post_content'], 'url_slug', 'comment_status', 'comment_count', 'userUserId', 'post_created_time', 'user.user_name'],
-		order: [['post_created_time', 'DESC']],
-		where: {	
-			"post_type": "page",
-		},
-		include : [
-				{
-					attributes: ['user_name', 'user_type'],
-					model: models.users,
-				}
-			],
-
-		raw:true
-	})
-
-	res.locals.pages = pages;
-
-	return res.render("admin/pages/all", {page: parseInt(req.query.page)});
 }
 
 exports.showAddPage = async (req, res, next) => {
-	
 	res.render('admin/pages/pages');
-	
 }
 
 exports.addPage = async (req, res, next) => {

@@ -3,8 +3,12 @@ const chalk = require('chalk')
 
 
 exports.getPostBySlug = async (req, res, next) => {
-	Posts.getPostBySlug(req.params.slug)
-		.then( post => res.render('article', { post }) )
-		.catch(err => next(err))
+	try {
+		const post = await Posts.getPostBySlug(req.params.slug);
+
+		return res.render('article', { post }); 
+	} catch(err) {
+		return next(err)
+	}
 }
 

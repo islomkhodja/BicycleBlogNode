@@ -15,16 +15,14 @@ exports.getPostsByCategoryWithOffset = async (req, res, next) => {
 	let id = ""
 	try {
 		id = await models.terms_relationship.getAllPostsIdByCategory(req.params.category, offset, limit);
-	} catch(err) {
-		return next(err);
-	}
-	let _id = id.map(post => post.postPostId);
+		let _id = id.map(post => post.postPostId);
 
-	await Promise.all([
-		models.posts.getPostsById(_id),
-		models.terms_relationship.getAllTermsByPostId(_id)
-	]).then((data) => {
-		if(data) {
+		const data = await Promise.all([
+			models.posts.getPostsById(_id),
+			models.terms_relationship.getAllTermsByPostId(_id)
+		]);
+		
+		if (data) {
 			let posts = data[0];
 			let terms = data[1];
 			let result = postProcessing(posts, terms);
@@ -35,7 +33,7 @@ exports.getPostsByCategoryWithOffset = async (req, res, next) => {
 			category: req.params.category,
 			page: parseInt(req.query.page)
 		});
-	}).catch(err => {
+	} catch(err) {
 		return next(err);
-	})
+	}
 }
